@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Api::RunsController < Api::ApiController
   def create
     run = Run.new

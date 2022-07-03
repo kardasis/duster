@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Run < ApplicationRecord
   before_validation :set_run_id
   attr_accessor :run_id
