@@ -1,0 +1,13 @@
+inherit_from: ../../.rubocop.yml
+
+Style/QuotedSymbols:
+  EnforcedStyle: double_quotes
+
+Style/SymbolProc:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+  
+
