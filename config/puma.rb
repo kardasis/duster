@@ -8,8 +8,8 @@ worker_timeout 3600 if ENV.fetch('RAILS_ENV', 'development') == 'development'
 
 port ENV.fetch('PORT', 3000)
 
-environment ENV.fetch('RAILS_ENV') { 'development' }
+environment ENV.fetch('RAILS_ENV', 'development')
 
-pidfile ENV.fetch('PIDFILE') { 'tmp/pids/server.pid' }
+pidfile ENV.fetch('PIDFILE', 'tmp/pids/server.pid')
 
 plugin :tmp_restart
