@@ -5,6 +5,6 @@ class Run < ApplicationRecord
   validates :run_id, presence: true
 
   def set_run_id
-    self.run_id = SecureRandom.uuid  
+    self.run_id = SecureRandom.uuid
   end
 end
