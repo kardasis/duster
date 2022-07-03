@@ -3,14 +3,20 @@
 require 'rails_helper'
 
 describe Api::RunsController do
+  describe 'GET run' do
+    it 'returns the run' do
+      run = create(:run)
+      get :show, params: { run: { id: run.id } }
+      expect(JSON.parse(response.body)['id']).to match(run.id)
+    end
+  end
+
   describe 'POST run' do
     it 'returns a 200' do
-      uuid_regex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/
-
       post :create
 
       expect(response.status).to eq(200)
-      expect(JSON.parse(response.body)['run_id']).to match(uuid_regex)
+      expect(JSON.parse(response.body)['id']).to be_a_valid_uuid
     end
   end
 end

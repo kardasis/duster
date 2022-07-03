@@ -24,3 +24,10 @@ RSpec.configure do |config|
 
   Kernel.srand config.seed
 end
+
+RSpec::Matchers.define :be_a_valid_uuid do
+  uuid_regex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/
+  match do |actual|
+    uuid_regex.match actual
+  end
+end
