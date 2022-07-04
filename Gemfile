@@ -19,11 +19,13 @@ gem 'turbo-rails'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 group :development, :test do
+  gem 'dotenv-rails', '~> 2.7.6'
   gem 'factory_bot_rails', '~> 6.2.0'
   gem 'guard-rspec', require: false
+  gem 'mock_redis', '~> 0.32.0'
   gem 'pry', '~> 0.13.1'
   gem 'rspec-rails', '~> 5.0.0'
-  gem 'rubocop-rails', '~>2.15.0', require: false
+  gem 'rubocop-rails', '~> 2.15.0', require: false
 end
 
 group :development do

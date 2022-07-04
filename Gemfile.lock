@@ -83,6 +83,10 @@ GEM
     crass (1.0.6)
     diff-lcs (1.5.0)
     digest (3.1.0)
+    dotenv (2.7.6)
+    dotenv-rails (2.7.6)
+      dotenv (= 2.7.6)
+      railties (>= 3.2)
     erubi (1.10.0)
     factory_bot (6.2.0)
       activesupport (>= 5.0.0)
@@ -130,6 +134,8 @@ GEM
     method_source (1.0.0)
     mini_mime (1.1.2)
     minitest (5.16.1)
+    mock_redis (0.32.0)
+      ruby2_keywords
     msgpack (1.5.3)
     nenv (0.3.0)
     net-imap (0.2.3)
@@ -237,6 +243,7 @@ GEM
       rack (>= 1.1)
       rubocop (>= 1.7.0, < 2.0)
     ruby-progressbar (1.11.0)
+    ruby2_keywords (0.0.5)
     shellany (0.0.1)
     sprockets (4.1.1)
       concurrent-ruby (~> 1.0)
@@ -273,10 +280,12 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers
   bootsnap
+  dotenv-rails (~> 2.7.6)
   factory_bot_rails (~> 6.2.0)
   guard-rspec
   importmap-rails
   jbuilder
+  mock_redis (~> 0.32.0)
   pg
   pry (~> 0.13.1)
   puma (~> 5.0)
