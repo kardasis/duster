@@ -7,29 +7,31 @@ class BestTimeForDistance
   end
 
   def calculate(miles:)
-    ticks_in_distance = (RunSummary.ticks_per_mile * miles).round
+    ticks_in_distance = (TICKS_PER_MILE * miles).round
     best = nil
 
     (0...@data.length - ticks_in_distance).each do |start_index|
       end_index = start_index + ticks_in_distance
       time = @data[end_index] - @data[start_index]
       if best.nil? || best[:time] > time
-        best = distance_record_hash(start_index, end_index, time)
+        best = distance_record_hash(start_index, end_index)
       end
     end
+
     best
   end
 
   private
 
-  def distance_record_hash(start_index, end_index, time)
+  def distance_record_hash(start_index, end_index)
+    end_time = @data[end_index]
+    start_time = @data[start_index]
     {
-      start_time: @data[start_index],
       start_index: start_index,
+      start_time: start_time,
       end_index: end_index,
-      start_distance: start_index / RunSummary.ticks_per_mile,
-      end_distance: end_index / RunSummary.ticks_per_mile,
-      time: time / 1000.0
+      end_time: end_time,
+      time: end_time - start_time
     }
   end
 end

@@ -10,10 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_04_141515) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_05_150831) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
+
+  create_table "run_slices", force: :cascade do |t|
+    t.integer "run_summary_id", null: false
+    t.string "nominal_distance"
+    t.integer "start_index", null: false
+    t.integer "end_index", null: false
+    t.integer "start_time"
+    t.integer "end_time"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["run_summary_id"], name: "index_run_slices_on_run_summary_id"
+  end
 
   create_table "run_summaries", force: :cascade do |t|
     t.uuid "run_id", null: false
