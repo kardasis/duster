@@ -5,11 +5,15 @@ class RunSummary < ApplicationRecord
 
   before_validation :calculate
 
+  def self.ticks_per_mile
+    5280 * (6 / 3.12)
+  end
+
   private
 
   def calculate
     tickstamps = normalize(RunDataStore.get(run.id))
-    self.total_distance = tickstamps.length / ticks_per_mile
+    self.total_distance = tickstamps.length / self.class.ticks_per_mile
     self.total_time = tickstamps.last / 1000
     self.start_time = run.created_at
   end
@@ -24,10 +28,6 @@ class RunSummary < ApplicationRecord
       end
     end
     res
-  end
-
-  def ticks_per_mile
-    5280 * (6 / 3.12)
   end
 
   def debounce_time
