@@ -11,7 +11,7 @@ FactoryBot.define do
     trait :with_data do
       after(:create) do |run|
         data = (0...10_000).map do |i|
-          i * 50 - i * i / 10_000_000
+          (i * 50) - (i * i / 10_000_000)
         end
         RunDataStore.add run.id, data
       end
