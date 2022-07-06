@@ -6,6 +6,8 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.1.0'
 
 gem 'active_model_serializers'
+gem 'aws-sdk-rails', '~> 3'
+gem 'aws-sdk-s3', '~> 1'
 gem 'bootsnap', require: false
 gem 'importmap-rails'
 gem 'jbuilder'
