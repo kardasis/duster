@@ -40,3 +40,8 @@ guard :rspec, cmd: 'bundle exec rspec' do
     Dir[File.join("**/#{m[1]}.feature")][0] || 'spec/acceptance'
   end
 end
+
+guard :rubocop do
+  watch(/.+\.rb$/)
+  watch(%r{(?:.+/)?\.rubocop(?:_todo)?\.yml$}) { |m| File.dirname(m[0]) }
+end

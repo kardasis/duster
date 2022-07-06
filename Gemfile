@@ -24,6 +24,7 @@ group :development, :test do
   gem 'dotenv-rails', '~> 2.7.6'
   gem 'factory_bot_rails', '~> 6.2.0'
   gem 'guard-rspec', require: false
+  gem 'guard-rubocop', '~> 1.5.0'
   gem 'mock_redis', '~> 0.32.0'
   gem 'pry', '~> 0.13.1'
   gem 'rspec-rails', '~> 5.0.0'
