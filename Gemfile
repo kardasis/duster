@@ -33,4 +33,5 @@ end
 
 group :development do
   gem 'web-console'
+  gem 'pry-rails', '~> 0.3.4'
 end
