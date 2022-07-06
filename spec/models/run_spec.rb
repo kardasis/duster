@@ -15,8 +15,8 @@ RSpec.describe Run, type: :model do
       run = create(:run, :with_small_data)
 
       expectation = {
-        'start_time' => run.start_time.to_i,
-        'tickstamps' => [123, 345, 567]
+        'startTime' => run.start_time.to_i,
+        'ticks' => [123, 345, 567]
       }
       expect(JSON.parse(run.raw_data_json)).to eq expectation
     end
