@@ -3,7 +3,7 @@
 module Api
   class RunsController < Api::ApiController
     def show
-      run = Run.find(params[:run][:id])
+      run = Run.find(params[:id])
       render json: run
     end
 

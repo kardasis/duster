@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe RunDataStore, type: :model do
+describe RunDataStore, type: :model do
   describe 'add' do
     it 'should update internal data' do
       run_id = 'abc'

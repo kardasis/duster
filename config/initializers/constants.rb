@@ -1,6 +1,11 @@
 KILOMETERS_PER_MILE = 1.60934
 TICKS_PER_MILE = 5280 * (6 / 3.12)
 
+DEBOUNCE_TIME = 20 # min milliseconds between ticks
+
+# MILLIS_PER_HOUR : 60 * 60 * 1000,
+# SPEED_SMOOTHING : 0.5,
+#
 RECORD_DISTANCES = {
   "oneMile": 1.0,
   "fiveKm": 5.0 * KILOMETERS_PER_MILE,

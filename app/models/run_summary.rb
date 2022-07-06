@@ -32,19 +32,11 @@ class RunSummary < ApplicationRecord
     res = []
     prev = raw_ticks[0]
     raw_ticks.drop(1).each do |t|
-      if t - prev > debounce_time
+      if t - prev > DEBOUNCE_TIME
         res.push(t - raw_ticks[0])
         prev = t
       end
     end
     res
   end
-
-  def debounce_time
-    20
-  end
-
-  # Some constants for future use
-  # MILLIS_PER_HOUR : 60 * 60 * 1000,
-  # SPEED_SMOOTHING : 0.5,
 end

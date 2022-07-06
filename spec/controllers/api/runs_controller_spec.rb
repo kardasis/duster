@@ -6,7 +6,7 @@ describe Api::RunsController do
   describe 'GET run' do
     it 'returns the run' do
       run = create(:run)
-      get :show, params: { run: { id: run.id } }
+      get :show, params: { id: run.id }
       expect(JSON.parse(response.body)['id']).to match(run.id)
     end
   end
