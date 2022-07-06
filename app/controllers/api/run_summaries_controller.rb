@@ -3,7 +3,7 @@ module Api
     def create
       run = Run.find params[:run_id]
       summary = run.create_run_summary
-      AwsClient.put_run_to_s3 run
+      ColdDataStore.store_raw_json run
       render json: summary
     end
   end
