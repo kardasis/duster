@@ -37,3 +37,5 @@
 spec/examples.txt
 
 .env
+
+dump.rdb
