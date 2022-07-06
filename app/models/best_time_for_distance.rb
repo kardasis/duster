@@ -27,10 +27,10 @@ class BestTimeForDistance
     end_time = @data[end_index]
     start_time = @data[start_index]
     {
-      start_index: start_index,
-      start_time: start_time,
-      end_index: end_index,
-      end_time: end_time,
+      start_index:,
+      start_time:,
+      end_index:,
+      end_time:,
       time: end_time - start_time
     }
   end

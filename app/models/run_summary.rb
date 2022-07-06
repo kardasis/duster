@@ -19,7 +19,7 @@ class RunSummary < ApplicationRecord
   def calculate_distance_records
     btfd = BestTimeForDistance.new(@tickstamps)
     RECORD_DISTANCES.each do |name, miles|
-      best = btfd.calculate(miles: miles)
+      best = btfd.calculate(miles:)
       if best
         params = best.merge({ nominal_distance: name }).except(:time)
         run_slice = RunSlice.create(params)
