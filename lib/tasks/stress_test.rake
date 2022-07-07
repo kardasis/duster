@@ -1,8 +1,7 @@
-require 'http'
-
 namespace :stress_test do
   desc 'do a quick lap and make sure the server can handle it.'
   task quick_lap: :environment do
+    require 'http'
     run_id = JSON.parse(HTTP.post('http://localhost:3000/api/runs').to_s)['id']
 
     seconds = 0
