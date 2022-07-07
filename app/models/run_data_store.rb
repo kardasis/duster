@@ -10,6 +10,10 @@ class RunDataStore
 
   def self.get(run_id)
     Redis.new.zrangebyscore(run_id, -Float::INFINITY, +Float::INFINITY, withscores: true)
-         .map(&:second)
+         .map(&:second).presence || nil
+  end
+
+  def self.remove(run_id)
+    Redis.new.del(run_id)
   end
 end
