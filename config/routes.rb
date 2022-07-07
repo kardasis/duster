@@ -2,6 +2,9 @@
 
 Rails.application.routes.draw do
   root to: 'welcome#index'
+
+  resources :run_summaries, only: %i[index show delete]
+
   namespace :api do
     resources :runs, only: %i[create show] do
       resources :run_summaries, only: :create
