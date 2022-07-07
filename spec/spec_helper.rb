@@ -6,6 +6,10 @@ RSpec.configure do |config|
   config.before(:each) do
     mock_redis = MockRedis.new
     allow(Redis).to receive(:new).and_return(mock_redis)
+
+    s3_client = Aws::S3::Client.new
+    allow(Aws::S3::Client).to receive(:new).and_return(s3_client)
+    allow(s3_client).to receive(:put_object)
   end
 
   config.expect_with :rspec do |expectations|
