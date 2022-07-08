@@ -4,20 +4,22 @@ class RunSummary < ApplicationRecord
   belongs_to :run
   has_many :distance_records, class_name: 'RunSlice', dependent: :destroy
 
-  before_validation :calculate
+  def self.from_run(run)
+    tickstamps = normalize(RunDataStore.get(run.id))
+    raw_data_uri = ColdDataStore.store_raw_json(tickstamps, run)
 
-  private
+    summary = new({ run:, raw_data_uri: })
+    summary.total_distance = tickstamps.length / TICKS_PER_MILE
+    summary.total_time = tickstamps.last / 1000
+    summary.start_time = run.created_at
+    summary.calculate_distance_records(tickstamps)
 
-  def calculate
-    @tickstamps = normalize(RunDataStore.get(run.id))
-    self.total_distance = @tickstamps.length / TICKS_PER_MILE
-    self.total_time = @tickstamps.last / 1000
-    self.start_time = run.created_at
-    calculate_distance_records
+    summary.save
+    summary
   end
 
-  def calculate_distance_records
-    btfd = BestTimeForDistance.new(@tickstamps)
+  def calculate_distance_records(tickstamps)
+    btfd = BestTimeForDistance.new(tickstamps)
     RECORD_DISTANCES.each do |name, miles|
       best = btfd.calculate(miles:)
       if best
@@ -28,7 +30,7 @@ class RunSummary < ApplicationRecord
     end
   end
 
-  def normalize(raw_ticks)
+  def self.normalize(raw_ticks)
     res = []
     prev = raw_ticks[0]
     raw_ticks.drop(1).each do |t|

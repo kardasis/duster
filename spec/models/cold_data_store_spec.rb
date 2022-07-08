@@ -6,9 +6,9 @@ describe ColdDataStore, type: :model do
   describe 'store_raw_json' do
     it 'call the aws method' do
       s3_client = Aws::S3::Client.new
-      run = create :run, :with_small_data
+      run = create :run
 
-      uri = ColdDataStore.store_raw_json run
+      uri = ColdDataStore.store_raw_json [123, 345], run
 
       bucket = ENV.fetch('AWS_S3_RAW_DATA_BUCKET_NAME', nil)
       key = run.id

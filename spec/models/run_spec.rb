@@ -9,16 +9,4 @@ RSpec.describe Run, type: :model do
       expect(run.id).to be_a_valid_uuid
     end
   end
-
-  describe 'raw_data_json' do
-    it 'should return a json string' do
-      run = create(:run, :with_small_data)
-
-      expectation = {
-        'startTime' => run.start_time.to_i,
-        'ticks' => [123, 345, 567]
-      }
-      expect(JSON.parse(run.raw_data_json)).to eq expectation
-    end
-  end
 end
