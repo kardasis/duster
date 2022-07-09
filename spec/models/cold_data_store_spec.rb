@@ -20,10 +20,10 @@ describe ColdDataStore, type: :model do
   describe '.fetch_raw_data' do
     it 'should return a hash object of the data' do
       s3_client = Aws::S3::Client.new
-      json_data_string = { start_time: 1_657_310_628, ticks: [123, 987, 1234] }.to_json
+      json_data_string = { 'start_time' => 1_657_310_628, 'ticks' => [123, 987, 1234] }.to_json
       key = 'abcd'
       bucket = 'xyz'
-      allow(s3_client).to receive(:get_object).with(key:, bucket:).and_return(json_data_string)
+      allow(s3_client).to receive_message_chain(:get_object, :body, :string).and_return(json_data_string)
 
       result = ColdDataStore.fetch_s3_data(bucket, key)
 

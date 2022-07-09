@@ -28,6 +28,6 @@ class ColdDataStore < ApplicationRecord
   def self.fetch_s3_data(bucket, key)
     s3 = Aws::S3::Client.new
     object = s3.get_object({ bucket:, key: })
-    JSON.parse object
+    JSON.parse object.body.string
   end
 end

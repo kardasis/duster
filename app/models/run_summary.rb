@@ -6,9 +6,9 @@ class RunSummary < ApplicationRecord
 
   def self.from_s3_bucket(bucket, key)
     data = ColdDataStore.fetch_s3_data bucket, key
-    start_time = data[:start_time]
+    start_time = data['start_time']
     raw_data_uri = ColdDataStore.s3_uri bucket, key
-    tickstamps = normalize(data[:ticks])
+    tickstamps = normalize(data['ticks'])
 
     run = Run.new
     run.start_time = start_time

@@ -20,7 +20,7 @@ describe RunSummary, type: :model do
 
   describe '.from_cold_store' do
     it 'should pull data from cold storage and create a run' do
-      data = { start_time: 1_657_310_628, ticks: [123, 987, 1234] }
+      data = { 'start_time' => 1_657_310_628, 'ticks' => [123, 987, 1234] }
       key = 'abcd'
       bucket = 'xyz'
       allow(ColdDataStore).to receive(:fetch_s3_data).with(bucket, key).and_return(data)
