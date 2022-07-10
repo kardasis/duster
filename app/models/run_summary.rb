@@ -5,14 +5,16 @@ class RunSummary < ApplicationRecord
   has_many :distance_records, class_name: 'RunSlice', dependent: :destroy
 
   def self.from_s3_bucket(bucket, key)
+    if Run.exists? key
+      return nil
+    end
+
     data = ColdDataStore.fetch_s3_data bucket, key
-    start_time = data['start_time']
     raw_data_uri = ColdDataStore.s3_uri bucket, key
     tickstamps = normalize(data['ticks'])
 
-    run = Run.new
-    run.start_time = start_time
-    run.save
+    run = Run.create_with_start_time data['start_time']
+
     summary = new({ run:, raw_data_uri: })
     summary.calculate_summary(tickstamps).save
     summary
@@ -55,7 +57,7 @@ class RunSummary < ApplicationRecord
   def calculate_summary(tickstamps)
     self.total_distance = tickstamps.length / TICKS_PER_MILE
     self.total_time = tickstamps.last / 1000
-    self.start_time = run.created_at
+    self.start_time = Time.at(run.start_time).utc
     calculate_distance_records(tickstamps)
     self
   end

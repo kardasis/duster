@@ -27,6 +27,16 @@ describe RunSummary, type: :model do
 
       summary = RunSummary.from_s3_bucket bucket, key
       expect(summary.total_time).to eq 1111 / 1000
+      expect(summary.start_time.to_i).to eq 1_657_310_628
+    end
+
+    it 'should fail if the run already exists' do
+      run = create :run
+      key = run.id
+      bucket = 'xyz'
+
+      summary = RunSummary.from_s3_bucket bucket, key
+      expect(summary).to be nil
     end
   end
 end
