@@ -11,7 +11,7 @@ class RunSummary < ApplicationRecord
 
     data = ColdDataStore.fetch_s3_data bucket, key
     raw_data_uri = ColdDataStore.s3_uri bucket, key
-    tickstamps = normalize(data['ticks'])
+    tickstamps = normalize(data['ticks'].map(&:to_i))
 
     run = Run.create_with_start_time data['start_time']
 
