@@ -3,3 +3,6 @@ inherit_from: ../.rubocop.yml
 Metrics/BlockLength:
   IgnoredMethods: ['describe', 'context']
 
+Rails/SkipsModelValidations:
+  Enabled: false
+

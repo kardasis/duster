@@ -8,7 +8,7 @@ module Api
     end
 
     def create
-      run = Run.new
+      run = Run.new({ start_time: Time.now.utc.round })
       run.save!
       render json: run
     end

@@ -2,6 +2,8 @@
 
 FactoryBot.define do
   factory :run do
+    start_time { Time.now.utc.round }
+
     trait :with_small_data do
       after(:create) do |run|
         RunDataStore.add run.id, [123, 345, 567]
