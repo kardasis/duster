@@ -9,5 +9,8 @@ Style/FrozenStringLiteralComment:
 Style/Next:
   Enabled: false
 
+Style/WhileUntilModifier:
+  Enabled: false
+
 Style/IfUnlessModifier:
   Enabled: false
