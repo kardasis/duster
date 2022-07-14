@@ -11,4 +11,42 @@ class Run < ApplicationRecord
     run.save
     run
   end
+
+  def tickstamps
+    @tickstamps ||= calculate_tickstamps
+  end
+
+  def generate_summary
+    build_summary
+    summary.tickstamps = tickstamps
+    summary.calculate_summary
+    summary.save
+  end
+
+  def normalize(raw_ticks)
+    res = []
+    prev = raw_ticks[0]
+    raw_ticks.drop(1).each do |t|
+      if t - prev > DEBOUNCE_TIME
+        res.push(t - raw_ticks[0])
+        prev = t
+      end
+    end
+    res
+  end
+
+  private
+
+  def calculate_tickstamps
+    res = RunDataStore.get id
+    if !res
+      bucket = ENV.fetch('AWS_S3_RAW_DATA_BUCKET_NAME', nil)
+      key = id
+      res = ColdDataStore.fetch_s3_data(bucket, key)
+      if res
+        res = res['ticks']
+      end
+    end
+    normalize res
+  end
 end

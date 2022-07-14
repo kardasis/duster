@@ -12,6 +12,17 @@ describe RunDataStore, type: :model do
     end
   end
 
+  describe '.take' do
+    it 'should fetch the data and remove it' do
+      run_id = 'abc'
+      RunDataStore.add run_id, [34, 123]
+      data = RunDataStore.take run_id
+
+      expect(RunDataStore.get(run_id)).to be_nil
+      expect(data).to eq [34, 123]
+    end
+  end
+
   describe '.remove' do
     it 'should remove data for the run' do
       run_id = 'abc'

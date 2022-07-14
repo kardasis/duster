@@ -13,6 +13,12 @@ class RunDataStore
          .map(&:second).presence || nil
   end
 
+  def self.take(run_id)
+    res = get run_id
+    remove run_id
+    res
+  end
+
   def self.remove(run_id)
     Redis.new.del(run_id)
   end
