@@ -1,5 +1,14 @@
 # Thin wrapper around AWS operations
 class ColdDataStore < ApplicationRecord
+  def self.store_interval_json(run)
+    s3 = Aws::S3::Client.new
+    bucket = ENV.fetch('AWS_S3_RAW_DATA_BUCKET_NAME', nil)
+    key = "#{run.id}-interval"
+
+    s3.put_object({ body: run.second_data.to_json, bucket:, key: })
+    s3_uri bucket, key
+  end
+
   def self.store_raw_json(run)
     s3 = Aws::S3::Client.new
     bucket = ENV.fetch('AWS_S3_RAW_DATA_BUCKET_NAME', nil)
@@ -32,7 +41,7 @@ class ColdDataStore < ApplicationRecord
     rescue StandardError
       nil
     else
-      JSON.parse object.body.string
+      JSON.parse object.body.string, symbolize_names: true
     end
   end
 end

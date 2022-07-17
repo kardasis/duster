@@ -10,6 +10,22 @@ RSpec.describe Run, type: :model do
     end
   end
 
+  describe '#second_data' do
+    it 'should return interval data from cold storage' do
+      s3_client = Aws::S3::Client.new
+      json_data_string = { data: [{ a: 1 }] }.to_json
+      allow(s3_client).to receive_message_chain(:get_object, :body, :string).and_return(json_data_string)
+      run = create :run, :with_small_data
+
+      expect(run.second_data).to eq({ data: [{ a: 1 }] })
+    end
+
+    it 'should return interval data calculated from the tickstamps' do
+      run = create :run, :with_data
+      expect(run.second_data.length).to be(499)
+    end
+  end
+
   describe '#tickstamps' do
     it 'should return tickstamps from the cache' do
       run = create :run

@@ -24,7 +24,7 @@ class RunSummary < ApplicationRecord
     self.start_time = Time.at(run.start_time).utc
     calculate_distance_records(@tickstamps)
 
-    IntervalData.new @tickstamps
+    IntervalData.new run
     save
     self
   end

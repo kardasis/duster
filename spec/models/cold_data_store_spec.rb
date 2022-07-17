@@ -27,8 +27,8 @@ describe ColdDataStore, type: :model do
 
       result = ColdDataStore.fetch_s3_data(bucket, key)
 
-      expect(result['start_time']).to eq 1_657_310_628
-      expect(result['ticks']).to eq [123, 987, 1234]
+      expect(result[:start_time]).to eq 1_657_310_628
+      expect(result[:ticks]).to eq [123, 987, 1234]
     end
   end
 end

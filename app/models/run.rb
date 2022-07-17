@@ -16,6 +16,10 @@ class Run < ApplicationRecord
     @tickstamps ||= calculate_tickstamps
   end
 
+  def second_data
+    interval_data.second_data
+  end
+
   def generate_summary
     build_summary
     summary.tickstamps = tickstamps
@@ -37,6 +41,14 @@ class Run < ApplicationRecord
 
   private
 
+  def interval_data
+    if @interval_data
+      return @interval_data
+    end
+
+    @interval_data = IntervalData.new self
+  end
+
   def calculate_tickstamps
     res = RunDataStore.get id
     if !res
@@ -44,7 +56,7 @@ class Run < ApplicationRecord
       key = id
       res = ColdDataStore.fetch_s3_data(bucket, key)
       if res
-        res = res['ticks']
+        res = res[:ticks]
       end
     end
     normalize res

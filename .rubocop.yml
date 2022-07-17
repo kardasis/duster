@@ -17,3 +17,6 @@ Style/IfUnlessModifier:
 
 Style/NegatedIf:
   Enabled: false
+
+Rails/Delegate:
+  Enabled: false
