@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   root to: 'welcome#index'
 
   resources :run_summaries, only: %i[index show delete]
+  resources :runs, only: %i[show]
 
   namespace :api do
     resources :runs, only: %i[create show] do

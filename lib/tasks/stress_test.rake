@@ -15,6 +15,7 @@ namespace :stress_test do
         buffer = []
         seconds += 1
       end
+      sleep 1
     end
 
     HTTP.post("http://localhost:3000/api/runs/#{run_id}/run_summaries")
