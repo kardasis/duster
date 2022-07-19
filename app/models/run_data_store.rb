@@ -13,6 +13,10 @@ class RunDataStore
          .map(&:second).presence || nil
   end
 
+  def self.get_count(run_id)
+    Redis.new.zcount(run_id, -Float::INFINITY, +Float::INFINITY)
+  end
+
   def self.take(run_id)
     res = get run_id
     remove run_id

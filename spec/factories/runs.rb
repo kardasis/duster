@@ -6,7 +6,7 @@ FactoryBot.define do
 
     trait :with_small_data do
       after(:create) do |run|
-        RunDataStore.add run.id, [123, 345, 567]
+        run.add_datapoints [123, 345, 567]
       end
     end
 
@@ -15,7 +15,7 @@ FactoryBot.define do
         data = (0...10_000).map do |i|
           (i * 50) - (i * i / 10_000_000)
         end
-        RunDataStore.add run.id, data
+        run.add_datapoints data
       end
     end
   end

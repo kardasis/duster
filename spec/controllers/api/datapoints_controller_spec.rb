@@ -4,7 +4,7 @@ require 'rails_helper'
 
 describe Api::DatapointsController do
   describe 'POST add' do
-    it 'updates redis' do
+    it 'should update redis' do
       run = create :run
 
       post :add, params: { run_id: run.id, data: '345,456,567' }

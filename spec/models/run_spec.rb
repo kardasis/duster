@@ -29,7 +29,7 @@ RSpec.describe Run, type: :model do
   describe '#tickstamps' do
     it 'should return tickstamps from the cache' do
       run = create :run
-      RunDataStore.add run.id, [123, 234, 345]
+      run.add_datapoints [123, 234, 345]
 
       expect(run.tickstamps).to eq [111, 222]
     end
@@ -51,6 +51,43 @@ RSpec.describe Run, type: :model do
 
       expect(run.summary.start_time).to eq run.start_time
       expect(run.summary.total_distance).to be
+    end
+  end
+
+  describe '#add_datapoints' do
+    it 'should update the RunDataStore' do
+      allow(RunDataStore).to receive(:add)
+      run = create :run
+      data = [123, 987, 1234]
+
+      run.add_datapoints data
+
+      expect(RunDataStore).to have_received(:add).with(run.id, data)
+    end
+
+    it 'should push data out to the ws' do
+      allow(RunChannel).to receive(:broadcast_to)
+      run = create :run
+      data = [123, 987, 1234]
+
+      run.add_datapoints data
+
+      expect(RunChannel).to have_received(:broadcast_to)
+        .with(run, hash_including(:total_time, :total_distance))
+    end
+  end
+
+  describe '#live_data' do
+    it 'calculates time and distance' do
+      run = create :run
+      data = [123, 987, 1234]
+
+      run.add_datapoints data
+
+      expect(run.live_data).to eq({
+                                    total_time: 1111.0 / 1000,
+                                    total_distance: 3.0 / TICKS_PER_MILE
+                                  })
     end
   end
 end
