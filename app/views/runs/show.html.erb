@@ -1,4 +1,1 @@
-<h1><%= @run.id %></h1>
-<div id="live-run-view" data-run_id="<%=@run.id%>" >
-</div>
-
+<%= render(RunComponent.new(run: @run)) %>
