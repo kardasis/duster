@@ -2,6 +2,10 @@
 # from the iot device
 class RunChannel < ApplicationCable::Channel
   def subscribed
-    stream_for Run.find(params[:run_id])
+    if params[:run_id].present?
+      stream_for Run.find(params[:run_id])
+    else
+      stream_from 'new_runs'
+    end
   end
 end

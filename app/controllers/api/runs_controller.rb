@@ -8,8 +8,9 @@ module Api
     end
 
     def create
-      run = Run.new({ start_time: Time.now.utc.round })
-      run.save!
+      run = Run.create({ start_time: Time.now.utc.round })
+
+      ActionCable.server.broadcast('new_runs', { msg: 'run_started', runId: run.id })
       render json: run
     end
   end
