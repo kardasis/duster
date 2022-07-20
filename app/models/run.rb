@@ -1,8 +1,7 @@
-# frozen_string_literal: true
-
 # The primary model for dealing with a run.
 class Run < ApplicationRecord
   has_one :summary, class_name: 'RunSummary', dependent: :destroy
+  has_one :live_run, dependent: :destroy
   validates :start_time, presence: true
 
   def self.create_with_start_time(start_time)
@@ -28,19 +27,9 @@ class Run < ApplicationRecord
   end
 
   def add_datapoints(data)
-    self.first_tickstamp ||= data.first.to_i
-    save
-    @last = data.last.to_i
-
+    live_run || create_live_run
+    live_run.update_with(data)
     RunDataStore.add(id, data)
-    RunChannel.broadcast_to self, live_data
-  end
-
-  def live_data
-    {
-      total_time: (last_tick - first_tick) / 1000.0,
-      total_distance: RunDataStore.get_count(id) / TICKS_PER_MILE
-    }
   end
 
   def normalize(raw_ticks)
@@ -56,14 +45,6 @@ class Run < ApplicationRecord
   end
 
   private
-
-  def first_tick
-    first_tickstamp
-  end
-
-  def last_tick
-    @last
-  end
 
   def interval_data
     if @interval_data

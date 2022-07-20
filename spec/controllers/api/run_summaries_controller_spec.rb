@@ -5,7 +5,7 @@ require 'rails_helper'
 describe Api::RunSummariesController do
   describe 'POST run_summary' do
     it 'returns the summary' do
-      run = create(:run, :with_data)
+      run = create(:run, :with_data, :in_progress)
 
       bucket = ENV.fetch('AWS_S3_RAW_DATA_BUCKET_NAME', nil)
       key = run.id

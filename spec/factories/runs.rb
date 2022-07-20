@@ -1,8 +1,9 @@
-# frozen_string_literal: true
-
 FactoryBot.define do
   factory :run do
     start_time { Time.now.utc.round }
+    trait :in_progress do
+      live_run
+    end
 
     trait :with_small_data do
       after(:create) do |run|

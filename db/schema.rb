@@ -10,10 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_19_182658) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_20_133414) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
+
+  create_table "live_runs", force: :cascade do |t|
+    t.integer "first_tickstamp"
+    t.integer "last_tickstamp"
+    t.integer "tick_count", default: 0, null: false
+    t.bigint "run_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["run_id"], name: "index_live_runs_on_run_id"
+  end
 
   create_table "run_slices", force: :cascade do |t|
     t.integer "run_summary_id", null: false
@@ -42,7 +52,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_19_182658) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "start_time", null: false
-    t.integer "first_tickstamp"
   end
 
 end

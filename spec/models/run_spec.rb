@@ -64,30 +64,5 @@ RSpec.describe Run, type: :model do
 
       expect(RunDataStore).to have_received(:add).with(run.id, data)
     end
-
-    it 'should push data out to the ws' do
-      allow(RunChannel).to receive(:broadcast_to)
-      run = create :run
-      data = [123, 987, 1234]
-
-      run.add_datapoints data
-
-      expect(RunChannel).to have_received(:broadcast_to)
-        .with(run, hash_including(:total_time, :total_distance))
-    end
-  end
-
-  describe '#live_data' do
-    it 'calculates time and distance' do
-      run = create :run
-      data = [123, 987, 1234]
-
-      run.add_datapoints data
-
-      expect(run.live_data).to eq({
-                                    total_time: 1111.0 / 1000,
-                                    total_distance: 3.0 / TICKS_PER_MILE
-                                  })
-    end
   end
 end

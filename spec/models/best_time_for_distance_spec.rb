@@ -1,9 +1,7 @@
-# frozen_string_literal: true
-
 require 'rails_helper'
 
 describe BestTimeForDistance, type: :model do
-  describe 'calculate' do
+  describe '#calculate' do
     it 'should return the best time' do
       normalized_data = (0..1500).map { |i| 50 * i }
       btfd = BestTimeForDistance.new(normalized_data).calculate(miles: 0.1)
