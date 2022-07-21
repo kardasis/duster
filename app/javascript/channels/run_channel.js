@@ -56,14 +56,14 @@ function subscribeToRun(id) {
     },
 
     received(data) {
-      const total_time = data.total_time
-      const total_distance = data.total_distance
-
-const time = document.getElementById('total_time')
-      time.innerHTML = total_time
-const distance = document.getElementById('total_distance')
-      distance.innerHTML = total_distance
-
+      for(var key in data) {
+        console.log(key)
+        const elem = document.getElementById(key)
+        console.log(elem)
+        if (elem) {
+          elem.innerHTML = data[key]
+        }
+      }
     }
   })
 }

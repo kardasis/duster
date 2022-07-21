@@ -3,7 +3,7 @@ FactoryBot.define do
     run
 
     trait :in_progress do
-      first_tickstamp { 100 }
+      start_tickstamp { 100 }
     end
   end
 end

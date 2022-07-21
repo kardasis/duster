@@ -28,6 +28,7 @@ class Run < ApplicationRecord
 
   def add_datapoints(data)
     live_run || create_live_run
+
     live_run.update_with(data)
     RunDataStore.add(id, data)
   end

@@ -1,10 +1,35 @@
-  <h1 id="title"><%= title %></h1>
-  <div id="live-run-view" >
-    <div class="sidebar">
-      <ul>
-        <li/>
-      </ul>
+<h1 id="title"><%= title %></h1>
+<div id="live-run-view" >
+  <div class="row">
+    <div class="column">
+      <div class="data-label">Time</div>
+      <div class="data-wrapper-2">
+        <div id="total-time" class="run-data">0:00</div>
+      </div>
     </div>
-    <div id="total_time" class="run-data">0:00</div>
-    <div id="total_distance" class="run-data">0</div>
+    <div class="column">
+      <div class="data-label">Distance</div>
+      <div class="data-wrapper-2">
+        <div id="total-distance" class="run-data">0</div>
+      </div>
+    </div>
   </div>
+  <div class="row">
+    <div class="column data-wrapper-4">
+      <div class="data-label">Speed</div>
+      <div id="speed" class="run-data">0</div>
+    </div>
+    <div class="column data-wrapper-4">
+      <div class="data-label">Avg Speed</div>
+      <div id="average-speed" class="run-data">0</div>
+    </div>
+    <div class="column data-wrapper-4">
+      <div class="data-label">Pace</div>
+      <div id="pace" class="run-data">0</div>
+    </div>
+    <div class="column data-wrapper-4">
+      <div class="data-label">Avg Pace</div>
+      <div id="average-pace" class="run-data">0</div>
+    </div>
+  </div>
+</div>

@@ -11,12 +11,4 @@ class RunComponent < ViewComponent::Base
       'Start whenever you want'
     end
   end
-
-  def run_id_data
-    if run
-      "data-run_id=\"#{@run.id}\""
-    else
-      ''
-    end
-  end
 end

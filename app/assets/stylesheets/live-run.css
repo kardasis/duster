@@ -1,0 +1,57 @@
+body, html {
+  font-family: 'M PLUS 1', sans-serif;
+  height: 100%;
+}
+
+body {
+  width: 1400px;
+  margin: auto;
+}
+
+.data-label {
+  font-size: 50px;
+}
+
+#live-run-view {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.run-data {
+  text-align: center;
+  margin: auto;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid black;
+  flex-grow: 1;
+}
+
+.data-wrapper-4 {
+  width: 350px;
+}
+
+.data-wrapper-4 .data-label {
+  font-size: 20px;
+}
+
+.data-wrapper-4 .run-data {
+  font-size: 50px;
+}
+
+.data-wrapper-2 {
+  width: 700px;
+  font-size: 150px;
+}
+
+.row {
+  width: 100%;
+  margin: 0px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
