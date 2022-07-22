@@ -1,2 +1,6 @@
-<h1>All of your Runs</h1>
-<%= render(RunSummaryComponent.with_collection @run_summaries) %>
+<div class="flex flex-col max-w-5xl min-w-full mx-auto">
+  <h1>All of your Runs</h1>
+  <div class="flex flex-col w-4/5 mx-auto">
+    <%= render(RunSummaryComponent.with_collection @run_summaries) %>
+  </div>
+</div>

@@ -39,3 +39,6 @@ spec/examples.txt
 .env
 
 dump.rdb
+
+/app/assets/builds/*
+!/app/assets/builds/.keep
