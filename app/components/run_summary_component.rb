@@ -5,7 +5,7 @@ class RunSummaryComponent < ViewComponent::Base
   end
 
   def total_distance
-    sprintf '%0.2f Miles', @run_summary.total_distance
+    sprintf '%0.2f', @run_summary.total_distance
   end
 
   def total_time
@@ -13,11 +13,12 @@ class RunSummaryComponent < ViewComponent::Base
   end
 
   def speed
-    ''
+    s = (@run_summary.total_distance / @run_summary.total_time) * SECONDS_PER_HOUR
+    sprintf '%0.3f', s
   end
 
-  def fastest_mile
-    ''
+  def distance_records
+    @run_summary.distance_records
   end
 
   def format_duration(duration)
