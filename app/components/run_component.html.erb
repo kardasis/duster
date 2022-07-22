@@ -1,35 +1,44 @@
-<h1 id="title"><%= title %></h1>
-<div id="live-run-view" data-run_id="<%= @run&.id %>">
-  <div class="row">
-    <div class="column">
-      <div class="data-label">Time</div>
-      <div class="data-wrapper-2">
+<h1 id="title"></h1>
+<div id="live-run-view" data-run_id="<%= @run&.id %>"
+  class="flex flex-col grow">
+  <div class="flex flex-row justify-between mb-20">
+    <div class="flex flex-col">
+      <div class="text-lg text-gray-500">Time</div>
+      <div class="text-7xl">
         <div id="total-time" class="run-data">0:00</div>
       </div>
     </div>
-    <div class="column">
-      <div class="data-label">Distance</div>
-      <div class="data-wrapper-2">
+    <div class="">
+      <div class="text-gray-500 text-lg">Distance</div>
+      <div class="text-7xl">
         <div id="total-distance" class="run-data">0</div>
       </div>
     </div>
   </div>
-  <div class="row">
-    <div class="column data-wrapper-4">
-      <div class="data-label">Speed</div>
-      <div id="speed" class="run-data">0</div>
+
+  <div class="flex flex-row justify-between">
+
+    <div class="flex flex-col items-start">
+      <div class="text-lg text-gray-500">Speed</div>
+      <div class="text-7xl">
+        <div id="speed" class="run-data ">0</div>
+      </div>
+      <div class="flex flex-row justify-start">
+        <div class="mr-5 w-40 text-gray-500 text-2xl ">Avg</div>
+        <div id="average-speed" class="text-4xl">0</div>
+      </div>
     </div>
-    <div class="column data-wrapper-4">
-      <div class="data-label">Avg Speed</div>
-      <div id="average-speed" class="run-data">0</div>
+
+    <div class="flex flex-col items-start">
+      <div class="text-lg text-gray-500">Pace</div>
+      <div class="text-7xl">
+        <div id="pace" class="run-data ">0</div>
+      </div>
+      <div class="flex flex-row justify-start">
+        <div class="mr-5 w-40 text-gray-500 text-2xl ">Avg</div>
+        <div id="average-pace" class="text-4xl">0</div>
+      </div>
     </div>
-    <div class="column data-wrapper-4">
-      <div class="data-label">Pace</div>
-      <div id="pace" class="run-data">0</div>
-    </div>
-    <div class="column data-wrapper-4">
-      <div class="data-label">Avg Pace</div>
-      <div id="average-pace" class="run-data">0</div>
-    </div>
+
   </div>
 </div>

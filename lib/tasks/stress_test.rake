@@ -8,7 +8,7 @@ namespace :stress_test do
 
     seconds = 0
     buffer = []
-    (0...TICKS_PER_MILE / 1.9).each do |i|
+    (0...(rand(0.5..4.0) * TICKS_PER_MILE)).each do |i|
       pp "posting #{i}"
       tickstamp = 50 * i
       buffer.push(tickstamp)

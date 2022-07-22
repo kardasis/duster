@@ -10,6 +10,17 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontSize: {
+        'xl': ['1rem', '1rem'],
+        '2xl': ['2rem', '2rem'],
+        '3xl': ['3rem', '3rem'],
+        '4xl': ['4rem', '4rem'],
+        '5xl': ['5rem', '5rem'],
+        '6xl': ['7rem', '7rem'],
+        '7xl': ['10rem', '10rem'],
+        '8xl': ['15rem', '15rem'],
+        '9xl': ['20rem', '20rem'],
+      } ,
       fontFamily: {
         sans: ['Roboto Condensed', ...defaultTheme.fontFamily.sans],
       },
