@@ -1,9 +1,9 @@
-# frozen_string_literal: true
-
 Rails.application.routes.draw do
   root to: 'welcome#index'
 
-  resources :run_summaries, only: %i[index show delete]
+  resources :run_summaries, only: %i[index show destroy] do
+    post 'duplicate'
+  end
   resource :run, only: %i[show]
 
   namespace :api do

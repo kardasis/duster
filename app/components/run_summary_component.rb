@@ -12,6 +12,10 @@ class RunSummaryComponent < ViewComponent::Base
     format_duration @run_summary.total_time
   end
 
+  def start_time
+    @run_summary.start_time.strftime('%B %d, %Y | %l%P')
+  end
+
   def speed
     s = (@run_summary.total_distance / @run_summary.total_time) * SECONDS_PER_HOUR
     sprintf '%0.3f', s
