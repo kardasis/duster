@@ -7,7 +7,12 @@ const title = document.getElementById('title')
 let subscription 
 
 if (view) {
-  unsetRunId()
+  const id = view.dataset.run_id
+  if (id) {
+    setRunId(id)
+  } else {
+    unsetRunId()
+  }
 }
 
 
@@ -30,7 +35,7 @@ function subscribeToGeneral() {
 }
 
 function setRunId(id) {
-  subscription.unsubscribe()
+  subscription?.unsubscribe()
   title.innerHTML = "You are running"
   subscribeToRun(id)
   view.style.display = 'flex'
@@ -38,7 +43,7 @@ function setRunId(id) {
 }
 
 function unsetRunId() {
-  subscription && subscription.unsubscribe()
+  subscription?.unsubscribe()
   title.innerHTML = "Whenever you're ready"
   subscribeToGeneral()
   view.style.display = 'none'
@@ -57,9 +62,7 @@ function subscribeToRun(id) {
 
     received(data) {
       for(var key in data) {
-        console.log(key)
         const elem = document.getElementById(key)
-        console.log(elem)
         if (elem) {
           elem.innerHTML = data[key]
         }

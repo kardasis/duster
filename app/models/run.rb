@@ -4,6 +4,8 @@ class Run < ApplicationRecord
   has_one :live_run, dependent: :destroy
   validates :start_time, presence: true
 
+  self.implicit_order_column = 'created_at'
+
   def self.create_with_start_time(start_time)
     run = Run.new
     run.start_time = Time.at(start_time.to_i).utc.round
@@ -23,7 +25,9 @@ class Run < ApplicationRecord
     build_summary
     summary.tickstamps = tickstamps
     summary.calculate_summary
-    summary.save
+    if summary.save
+      RunDataStore.remove id
+    end
   end
 
   def add_datapoints(data)

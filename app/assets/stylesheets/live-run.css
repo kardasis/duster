@@ -12,8 +12,12 @@ body {
   font-size: 50px;
 }
 
+#titlc {
+  display: block;
+}
+
 #live-run-view {
-  display: flex;
+  display: none;
   flex-direction: column;
   width: 100%;
 }

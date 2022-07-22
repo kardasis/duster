@@ -1,7 +1,11 @@
 class RunsController < ApplicationController
   def show
-    return if params[:id].blank?
-
-    @run = Run.find params[:id]
+    if params[:id].blank?
+      if Run.last.summary.nil?
+        @run = Run.last
+      end
+    else
+      @run = Run.find params[:id]
+    end
   end
 end

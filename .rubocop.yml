@@ -15,6 +15,9 @@ Style/WhileUntilModifier:
 Style/IfUnlessModifier:
   Enabled: false
 
+Style/GuardClause:
+  Enabled: false
+
 Style/NegatedIf:
   Enabled: false
 
