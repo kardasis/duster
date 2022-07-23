@@ -1,23 +1,6 @@
 import consumer from "channels/consumer"
-
-console.log("setting up run channel")
-const view = document.getElementById('live-run-view')
-const title = document.getElementById('title')
-
-let subscription 
-
-if (view) {
-  const id = view.dataset.run_id
-  if (id) {
-    setRunId(id)
-  } else {
-    unsetRunId()
-  }
-}
-
-
-function subscribeToGeneral() {
-  subscription = consumer.subscriptions.create({ channel: "RunChannel"}, {
+export function subscribeToGeneral(runStartedCallback) {
+  return consumer.subscriptions.create({ channel: "RunChannel"}, {
     connected() {
       console.log('connected')
     },
@@ -28,32 +11,16 @@ function subscribeToGeneral() {
 
     received(data) {
       if (data.msg == 'run_started') {
-        setRunId(data.runId)
+        runStartedCallback(data)
       }
     }
   })
 }
 
-function setRunId(id) {
-  subscription?.unsubscribe()
-  title.innerHTML = "You are running"
-  subscribeToRun(id)
-  view.style.display = 'flex'
-  title.style.display = 'none'
-}
-
-function unsetRunId() {
-  subscription?.unsubscribe()
-  title.innerHTML = "Whenever you're ready"
-  subscribeToGeneral()
-  view.style.display = 'none'
-  title.style.display = 'block'
-}
-
-function subscribeToRun(id) {
-  subscription = consumer.subscriptions.create({ channel: "RunChannel", run_id: id}, {
+export function subscribeToRun(id, receivedDataCallback) {
+  return consumer.subscriptions.create({ channel: "RunChannel", run_id: id}, {
     connected() {
-      console.log(`connected to run: ${id}`)
+      console.log("connected to run channel")
     },
 
     disconnected() {
@@ -61,14 +28,7 @@ function subscribeToRun(id) {
     },
 
     received(data) {
-      for(var key in data) {
-        const elem = document.getElementById(key)
-        if (elem) {
-          elem.innerHTML = data[key]
-        }
-      }
+      receivedDataCallback(data)
     }
   })
 }
-
-

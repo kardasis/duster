@@ -27,14 +27,15 @@ class LiveRun < ApplicationRecord
   end
 
   def client_update_data
-    {
-      'total-time': total_time_formatted,
-      'total-distance': total_distance_formatted,
-      speed: speed_formatted,
-      'average-speed': average_speed_formatted,
-      pace: pace_formatted,
-      'average-pace': average_pace_formatted
-    }
+    { stats: {
+        'total-time': total_time_formatted,
+        'total-distance': total_distance_formatted,
+        speed: speed_formatted,
+        'average-speed': average_speed_formatted,
+        pace: pace_formatted,
+        'average-pace': average_pace_formatted
+      },
+      intervalTicks: [[total_time, new_speed]] }
   end
 
   def speed_formatted
