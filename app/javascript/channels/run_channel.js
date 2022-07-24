@@ -1,4 +1,4 @@
-import consumer from "channels/consumer"
+import consumer from "./consumer"
 export function subscribeToGeneral(runStartedCallback) {
   return consumer.subscriptions.create({ channel: "RunChannel"}, {
     connected() {
