@@ -1,5 +1,9 @@
 import consumer from "./consumer"
-export function subscribeToGeneral(runStartedCallback) {
+
+type GeneralMessage = {msg: string, runId: string}
+type RunMessage = {msg: string}
+
+export function subscribeToGeneral(runStartedCallback: (arg0: GeneralMessage) => void) {
   return consumer.subscriptions.create({ channel: "RunChannel"}, {
     connected() {
       console.log('connected')
@@ -9,7 +13,7 @@ export function subscribeToGeneral(runStartedCallback) {
       console.log('disconnected')
     },
 
-    received(data) {
+    received(data: GeneralMessage) {
       if (data.msg == 'run_started') {
         runStartedCallback(data)
       }
@@ -17,7 +21,7 @@ export function subscribeToGeneral(runStartedCallback) {
   })
 }
 
-export function subscribeToRun(id, receivedDataCallback) {
+export function subscribeToRun(id: string, receivedDataCallback: (arg0: RunMessage) => void) {
   return consumer.subscriptions.create({ channel: "RunChannel", run_id: id}, {
     connected() {
       console.log("connected to run channel")
@@ -27,7 +31,7 @@ export function subscribeToRun(id, receivedDataCallback) {
       console.log(`disconnected from run: ${id}`)
     },
 
-    received(data) {
+    received(data: RunMessage) {
       receivedDataCallback(data)
     }
   })

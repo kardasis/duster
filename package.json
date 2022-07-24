@@ -9,5 +9,9 @@
   },
   "scripts": {
     "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds --public-path=assets"
+  },
+  "devDependencies": {
+    "@types/actioncable": "^5.2.7",
+    "typescript": "^4.7.4"
   }
 }

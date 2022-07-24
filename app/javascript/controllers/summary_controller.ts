@@ -1,9 +1,17 @@
 import { Controller } from "@hotwired/stimulus"
 
-const csrfToken = document.querySelector("[name='csrf-token']").content
+const element: HTMLElement | null = document.querySelector("[name='csrf-token']")
+let csrfToken
+
+if (element instanceof HTMLMetaElement) {
+  csrfToken = element.content;
+}
+
 
 
 export default class extends Controller {
+  idTarget: HTMLInputElement
+
   static targets = [ "id" ]
 
   async duplicate_summary() {

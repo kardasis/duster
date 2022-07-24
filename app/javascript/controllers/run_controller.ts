@@ -1,13 +1,25 @@
 import { Controller } from "@hotwired/stimulus"
-import { Chart, registerables } from 'chart.js';
+import { Chart, registerables, ScatterDataPoint } from 'chart.js';
+import { Subscription } from "@rails/actioncable"
 
 import {subscribeToRun, subscribeToGeneral} from '../channels/run_channel'
 
 Chart.register(...registerables);
 
+type IntervalDatum = ScatterDataPoint
+
 
 export default class extends Controller {
   static targets = [ "chart", "title", "dashboard"]
+
+  chart: Chart
+  chartTarget: HTMLCanvasElement
+  titleTarget: HTMLElement
+  dashboardTarget: HTMLElement
+  intervalData: IntervalDatum[]
+  subscription: Subscription
+  runId: string
+
   connect() {
     this.intervalData = []
     this.runId = this.dashboardTarget.dataset.run_id
