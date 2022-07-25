@@ -13,15 +13,19 @@ export default class extends Controller {
   connect() {
     const summaries = JSON.parse(this.dataTarget.dataset.summaries)
     const dates = Object.keys(summaries).sort()
+    const labels = dates.map(d => {
+      return new Date().toLocaleDateString('en-us',{ month:"short", day: "numeric" }) 
+    })
+
+    console.log(labels)
 
     const barData = dates.map( date => {
-      return parseFloat(summaries[date][0].total_distance)
+      return parseFloat(summaries[date][0]?.total_distance)
     })
-    console.log(barData)
     this.chart = new Chart(this.chartTarget, {
       type: 'bar',
       data: {
-        labels: dates, 
+        labels, 
         datasets: [
           {
             data: barData
