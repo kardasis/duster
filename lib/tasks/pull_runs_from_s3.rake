@@ -26,8 +26,8 @@ def summary_from_s3_bucket(bucket, key)
 
   data = ColdDataStore.fetch_s3_data bucket, key
 
-  run = Run.create_with_start_time data['startTime']
-  tickstamps = normalize(data[:ticks].map(&:to_i))
-  create({ run:, raw_data_uri: ColdDataStore.s3_uri(bucket, key),
-           tickstamps: })
+  run = Run.create_with_start_time data[:startTime]
+  run.tickstamps = data[:ticks]
+
+  run.generate_summary
 end

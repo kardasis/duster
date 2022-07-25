@@ -3,6 +3,7 @@ class Run < ApplicationRecord
   has_one :summary, class_name: 'RunSummary', dependent: :destroy
   has_one :live_run, dependent: :destroy
   validates :start_time, presence: true
+  attr_writer :tickstamps
 
   self.implicit_order_column = 'created_at'
 
@@ -28,6 +29,7 @@ class Run < ApplicationRecord
     if summary.save
       RunDataStore.remove id
     end
+    summary
   end
 
   def add_datapoints(data)
