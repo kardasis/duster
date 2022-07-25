@@ -4,7 +4,7 @@ namespace :import do
     pp 'pulling run data from s3'
 
     s3 = Aws::S3::Client.new
-    bucket = ENV.fetch('AWS_S3_RAW_DATA_BUCKET_NAME', nil)
+    bucket = ENV.fetch('AWS_S3_OLD_RAW_DATA_BUCKET_NAME', nil)
     if bucket.nil?
       return
     end
@@ -28,7 +28,17 @@ def summary_from_s3_bucket(bucket, key)
 
   data = ColdDataStore.fetch_s3_data bucket, key
 
-  run = Run.create_with_start_time data[:startTime]
+  run = Run.create_with_start_time data[:startTime].to_i / 1000
+
   run.tickstamps = data[:ticks]
-  run.generate_summary
+
+  summary = run.generate_summary
+  raw_data_uri = ColdDataStore.store_raw_json run
+  summary.raw_data_uri = raw_data_uri
+
+  interval_data_uri = ColdDataStore.store_interval_json run
+  summary.interval_data_uri = interval_data_uri
+
+  summary.save
+  summary
 end

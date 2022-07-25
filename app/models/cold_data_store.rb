@@ -45,4 +45,14 @@ class ColdDataStore < ApplicationRecord
       nil
     end
   end
+
+  def self.remove_uri(uri)
+    s3 = Aws::S3::Client.new
+
+    parsed = URI.parse(uri)
+    bucket = parsed.host.split('.')[0]
+    key = parsed.path[1..]
+
+    s3.delete_object bucket:, key:
+  end
 end
