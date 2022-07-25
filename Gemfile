@@ -9,6 +9,8 @@ gem 'active_model_serializers'
 gem 'aws-sdk-rails', '~> 3'
 gem 'aws-sdk-s3', '~> 1'
 gem 'bootsnap', require: false
+gem 'chartkick', '~> 4.2'
+gem 'groupdate'
 gem 'jbuilder'
 gem 'jsbundling-rails', '~> 1.0'
 gem 'pg'

@@ -1,6 +1,8 @@
-<div class="flex flex-col max-w-5xl min-w-full mx-auto">
-  <h1>All of your Runs</h1>
-  <div class="flex flex-col w-4/5 mx-auto">
+<div class="flex flex-row max-w-5xl min-w-full mx-auto" >
+  <div class="flex flex-col w-1/4 mx-auto">
     <%= render(RunSummaryComponent.with_collection @run_summaries) %>
+  </div>
+  <div class="w-3/4">
+    <%= render(RunSummaryChartComponent.new) %>
   </div>
 </div>

@@ -4,12 +4,12 @@
 
 "@hotwired/stimulus@^3.1.0":
   version "3.1.0"
-  resolved "https://registry.npmjs.org/@hotwired/stimulus/-/stimulus-3.1.0.tgz"
+  resolved "https://registry.yarnpkg.com/@hotwired/stimulus/-/stimulus-3.1.0.tgz#20215251e5afe6e0a3787285181ba1bfc9097df0"
   integrity sha512-iDMHUhiEJ1xFeicyHcZQQgBzhtk5mPR0QZO3L6wtqzMsJEk2TKECuCQTGKjm+KJTHVY0dKq1dOOAWvODjpd2Mg==
 
 "@rails/actioncable@^7.0.3-1":
   version "7.0.3-1"
-  resolved "https://registry.npmjs.org/@rails/actioncable/-/actioncable-7.0.3-1.tgz"
+  resolved "https://registry.yarnpkg.com/@rails/actioncable/-/actioncable-7.0.3-1.tgz#041a5c81cdf0c68b70a783fdc3ffad0835c3da02"
   integrity sha512-c2TEL1hLjgSZLqTD6US25nYWv3zKaY2VVzJSqiDIlV6EkEEBirf1REOz6gPbC9Eb+5e0wI/Fp0IbAHL+86eKxg==
 
 "@types/actioncable@^5.2.7":
@@ -17,10 +17,29 @@
   resolved "https://registry.yarnpkg.com/@types/actioncable/-/actioncable-5.2.7.tgz#b42de922ba32f1a46c863df1ed32807ab08dda80"
   integrity sha512-HVpCvvE4Att0vSfCVNHf3gmCoqQPlySWIhH4THkG4r0hc0IcvRa0gIVyd9ekswMf3WiBsDc52OKnduIZQ7qcRw==
 
-chart.js@^3.8.0:
-  version "3.8.0"
-  resolved "https://registry.npmjs.org/chart.js/-/chart.js-3.8.0.tgz"
-  integrity sha512-cr8xhrXjLIXVLOBZPkBZVF6NDeiVIrPLHcMhnON7UufudL+CNeRrD+wpYanswlm8NpudMdrt3CHoLMQMxJhHRg==
+chart.js@>=3.0.2, chart.js@^3.8.2:
+  version "3.8.2"
+  resolved "https://registry.yarnpkg.com/chart.js/-/chart.js-3.8.2.tgz#e3ebb88f7072780eec4183a788a990f4a58ba7a1"
+  integrity sha512-7rqSlHWMUKFyBDOJvmFGW2lxULtcwaPLegDjX/Nu5j6QybY+GCiQkEY+6cqHw62S5tcwXMD8Y+H5OBGoR7d+ZQ==
+
+chartjs-adapter-date-fns@>=2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/chartjs-adapter-date-fns/-/chartjs-adapter-date-fns-2.0.0.tgz#5e53b2f660b993698f936f509c86dddf9ed44c6b"
+  integrity sha512-rmZINGLe+9IiiEB0kb57vH3UugAtYw33anRiw5kS2Tu87agpetDDoouquycWc9pRsKtQo5j+vLsYHyr8etAvFw==
+
+chartkick@^4.2.0:
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/chartkick/-/chartkick-4.2.0.tgz#106fc5ff7eef5343a9e6977f259a8a8a1ea57bf9"
+  integrity sha512-7yYZyxeFhOh/LA7gc1VwDFgc6t4ZM9RrbBjgb4dJoFukk2+94QkK0yulYI2OUH1cjcfrf1qmj04FkjZx7kZDeg==
+  optionalDependencies:
+    chart.js ">=3.0.2"
+    chartjs-adapter-date-fns ">=2.0.0"
+    date-fns ">=2.0.0"
+
+date-fns@>=2.0.0:
+  version "2.29.1"
+  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.29.1.tgz#9667c2615525e552b5135a3116b95b1961456e60"
+  integrity sha512-dlLD5rKaKxpFdnjrs+5azHDFOPEu4ANy/LTh04A1DTzMM7qoajmKCBc8pkKRFT41CNzw+4gQh79X5C+Jq27HAw==
 
 esbuild-android-64@0.14.49:
   version "0.14.49"
@@ -34,7 +53,7 @@ esbuild-android-arm64@0.14.49:
 
 esbuild-darwin-64@0.14.49:
   version "0.14.49"
-  resolved "https://registry.npmjs.org/esbuild-darwin-64/-/esbuild-darwin-64-0.14.49.tgz"
+  resolved "https://registry.yarnpkg.com/esbuild-darwin-64/-/esbuild-darwin-64-0.14.49.tgz#fd30a5ebe28704a3a117126c60f98096c067c8d1"
   integrity sha512-3rvqnBCtX9ywso5fCHixt2GBCUsogNp9DjGmvbBohh31Ces34BVzFltMSxJpacNki96+WIcX5s/vum+ckXiLYg==
 
 esbuild-darwin-arm64@0.14.49:
@@ -124,7 +143,7 @@ esbuild-windows-arm64@0.14.49:
 
 esbuild@^0.14.49:
   version "0.14.49"
-  resolved "https://registry.npmjs.org/esbuild/-/esbuild-0.14.49.tgz"
+  resolved "https://registry.yarnpkg.com/esbuild/-/esbuild-0.14.49.tgz#b82834760eba2ddc17b44f05cfcc0aaca2bae492"
   integrity sha512-/TlVHhOaq7Yz8N1OJrjqM3Auzo5wjvHFLk+T8pIue+fhnhIMpfAzsG6PLVMbFveVxqD2WOp3QHei+52IMUNmCw==
   optionalDependencies:
     esbuild-android-64 "0.14.49"
@@ -150,5 +169,5 @@ esbuild@^0.14.49:
 
 typescript@^4.7.4:
   version "4.7.4"
-  resolved "https://registry.npmjs.org/typescript/-/typescript-4.7.4.tgz"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.7.4.tgz#1a88596d1cf47d59507a1bcdfb5b9dfe4d488235"
   integrity sha512-C0WQT0gezHuw6AdY1M2jxUO83Rjf0HP7Sk1DtXj6j1EwkQNZrHAg2XPWlq62oqEhYvONq5pkC2Y9oPljWToLmQ==

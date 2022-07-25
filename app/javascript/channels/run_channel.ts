@@ -5,14 +5,6 @@ type RunMessage = {msg: string}
 
 export function subscribeToGeneral(runStartedCallback: (arg0: GeneralMessage) => void) {
   return consumer.subscriptions.create({ channel: "RunChannel"}, {
-    connected() {
-      console.log('connected')
-    },
-
-    disconnected() {
-      console.log('disconnected')
-    },
-
     received(data: GeneralMessage) {
       if (data.msg == 'run_started') {
         runStartedCallback(data)
@@ -23,14 +15,6 @@ export function subscribeToGeneral(runStartedCallback: (arg0: GeneralMessage) =>
 
 export function subscribeToRun(id: string, receivedDataCallback: (arg0: RunMessage) => void) {
   return consumer.subscriptions.create({ channel: "RunChannel", run_id: id}, {
-    connected() {
-      console.log("connected to run channel")
-    },
-
-    disconnected() {
-      console.log(`disconnected from run: ${id}`)
-    },
-
     received(data: RunMessage) {
       receivedDataCallback(data)
     }

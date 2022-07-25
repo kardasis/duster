@@ -4,8 +4,11 @@
 
 import { application } from "./application"
 
-import RunController from "./run_controller.js"
+import RunController from "./run_controller.ts"
 application.register("run", RunController)
 
-import SummaryController from "./summary_controller.js"
+import RunSummaryChartController from "./run_summary_chart_controller.js"
+application.register("run-summary-chart", RunSummaryChartController)
+
+import SummaryController from "./summary_controller.ts"
 application.register("summary", SummaryController)
