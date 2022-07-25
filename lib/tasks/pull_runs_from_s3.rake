@@ -19,6 +19,8 @@ namespace :import do
 end
 
 def summary_from_s3_bucket(bucket, key)
+  pp bucket, key
+
   start_time = key[/.*-(\d*)\.json/, 1]
   if start_time && RunSummary.exists?({ start_time: Time.at(start_time.to_i).utc })
     return nil
@@ -28,6 +30,5 @@ def summary_from_s3_bucket(bucket, key)
 
   run = Run.create_with_start_time data[:startTime]
   run.tickstamps = data[:ticks]
-
   run.generate_summary
 end
