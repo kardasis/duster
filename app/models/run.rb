@@ -3,7 +3,6 @@ class Run < ApplicationRecord
   has_one :summary, class_name: 'RunSummary', dependent: :destroy
   has_one :live_run, dependent: :destroy
   validates :start_time, presence: true
-  attr_writer :tickstamps
 
   self.implicit_order_column = 'created_at'
 
@@ -49,6 +48,10 @@ class Run < ApplicationRecord
       end
     end
     res
+  end
+
+  def tickstamps=(tickstamps)
+    @tickstamps = normalize(tickstamps)
   end
 
   private
