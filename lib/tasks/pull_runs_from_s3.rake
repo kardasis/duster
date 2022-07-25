@@ -5,7 +5,6 @@ namespace :import do
 
     s3 = Aws::S3::Client.new
     bucket = ENV.fetch('AWS_S3_RAW_DATA_BUCKET_NAME', nil)
-    bucket = 'arikardasis-runs'
     if bucket.nil?
       return
     end
@@ -28,7 +27,7 @@ def summary_from_s3_bucket(bucket, key)
   data = ColdDataStore.fetch_s3_data bucket, key
 
   run = Run.create_with_start_time data['startTime']
-  tickstamps = normalize(data['ticks'].map(&:to_i))
+  tickstamps = normalize(data[:ticks].map(&:to_i))
   create({ run:, raw_data_uri: ColdDataStore.s3_uri(bucket, key),
            tickstamps: })
 end

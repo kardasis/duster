@@ -14,10 +14,10 @@ export default class extends Controller {
     const summaries = JSON.parse(this.dataTarget.dataset.summaries)
     const dates = Object.keys(summaries).sort()
     const labels = dates.map(d => {
-      return new Date().toLocaleDateString('en-us',{ month:"short", day: "numeric" }) 
+      return new Date(d).toLocaleDateString('en-us',{ month:"short", day: "numeric" }) 
     })
 
-    console.log(labels)
+    console.log(summaries)
 
     const barData = dates.map( date => {
       return parseFloat(summaries[date][0]?.total_distance)
