@@ -2,10 +2,10 @@
 class RunSummaryChartComponent < ViewComponent::Base
   def data
     res = RunSummary.includes(:distance_records).all.group_by do |rs|
-      rs.start_time.beginning_of_day
+      rs.start_time.beginning_of_day.strftime '%Y-%m-%d'
     end
 
-      res.transform_values do |summaries|
+    res.transform_values do |summaries|
       summaries.map do |s|
         {
           distance_records: s.distance_records,
