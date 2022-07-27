@@ -3,7 +3,7 @@ class LiveRun < ApplicationRecord
   belongs_to :run
 
   def update_with(data)
-    self.start_tickstamp ||= data.first
+    self.start_tickstamp ||= data.first.to_i
 
     @tick_data = normalize(data)
 
