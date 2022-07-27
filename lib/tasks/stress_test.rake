@@ -3,7 +3,7 @@ namespace :stress_test do
   task quick_lap: :environment do
     require 'http'
 
-    base_url = 'http://localhost:3000/api'
+    base_url = 'http://localhost/api'
     run_id = JSON.parse(HTTP.post("#{base_url}/runs").to_s)['id']
 
     seconds = 0

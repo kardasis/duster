@@ -69,15 +69,34 @@ export default class extends Controller {
   initChart() {
     this.chart = new Chart(this.chartTarget, {
       type: 'scatter',
-      data: { datasets: [{ data: [] }] },
+      data: { datasets: [{ 
+        fill: {
+          value: 0, 
+        },
+        data: [],
+        borderColor: 'rgba(66, 66, 66, 1)',
+        backgroundColor: 'rgb(255, 23, 23, .4)',
+        borderWidth:1,
+        showLine: true
+      }] },
       options: chartOptions
-    });
+    })
   }
 }
 
 const chartOptions = {
+  plugins: {
+    legend: { display: false }
+  },
   maintainAspectRatio: false,
+  animation: false,
+  elements: {
+    point:{ radius: 0 }
+  },
   scales: {
+    yAxis: {
+      suggestedMin: 0,
+    },
     xAxis: {
       ticks: {
         stepSize: 1,
