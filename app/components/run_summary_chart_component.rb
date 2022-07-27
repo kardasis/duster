@@ -3,33 +3,39 @@ class RunSummaryChartComponent < ViewComponent::Base
   def data
     Date.beginning_of_week = :sunday
 
-    summaries = RunSummary.all.order(start_time: :asc)
-    monday = summary_week summaries[0]
+    @summaries = RunSummary.all.order(start_time: :asc)
 
-    mondays = []
-    monday_hash = {}
+    collect_sundays
+    datasets = calculate_datasets @sundays.length
 
-    while monday < DateTime.now
-      monday_hash[monday] = mondays.length
-      mondays.push(monday)
-      monday += 7.days
-    end
-
-    datasets = initial_data mondays.length
-
-    summaries.each do |s|
-      i = monday_hash[summary_week(s)]
-      datasets[s.start_time.wday][:data][i] += s.total_distance.to_f
-    end
-
-    labels = mondays.map { |d| d.strftime('%b %e') }
-    {
-      datasets:,
-      labels:
-    }
+    labels = @sundays.map { |d| d.strftime('%b %e') }
+    { datasets:, labels: }
   end
 
-  def initial_data(number_of_weeks)
+  def collect_sundays
+    @sundays = []
+    @sunday_hash = {}
+
+    @sunday = summary_week @summaries[0]
+    while @sunday < DateTime.now
+      @sunday_hash[@sunday] = @sundays.length
+      @sundays.push(@sunday)
+      @sunday += 7.days
+    end
+  end
+
+  def calculate_datasets(_number_of_weeks)
+    datasets = initial_data
+
+    @summaries.each do |s|
+      i = @sunday_hash[summary_week(s)]
+      datasets[s.start_time.wday][:data][i] += s.total_distance.to_f
+    end
+    datasets
+  end
+
+  def initial_data
+    number_of_weeks = @sundays.length
     [
       { label: 'Sunday', data: Array.new(number_of_weeks, 0), backgroundColor: 'grey' },
       { label: 'Monday', data: Array.new(number_of_weeks, 0), backgroundColor: 'purple' },
