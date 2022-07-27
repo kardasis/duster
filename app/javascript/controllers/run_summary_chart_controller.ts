@@ -3,6 +3,8 @@ import { Chart, registerables, ScatterDataPoint } from 'chart.js';
 
 Chart.register(...registerables);
 
+const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
 export default class extends Controller {
   static targets = [ 'chart', 'data']
 
@@ -11,33 +13,34 @@ export default class extends Controller {
   dataTarget: HTMLElement
 
   connect() {
-    const summaries = JSON.parse(this.dataTarget.dataset.summaries)
-    const gappy_dates = Object.keys(summaries).sort()
+    console.log(this.dataTarget.dataset.summariesData)
+    const data = JSON.parse(this.dataTarget.dataset.summariesData)
 
-    let dates = []
-    const now = new Date()
-    for (let d = new Date(gappy_dates[0]); d <= now; d.setDate(d.getDate() + 1)) {
-      dates.push(d.toISOString().split('T')[0])
-    }
-
-
-    const labels = dates.map(d => {
-      return new Date(d).toLocaleDateString('en-us',{ month:"short", day: "numeric" }) 
-    })
-
-
-    const barData = dates.map( date => {
-      return parseFloat(summaries[date]?.at(0)?.total_distance) || 0
-    })
     this.chart = new Chart(this.chartTarget, {
       type: 'bar',
-      data: {
-        labels, 
-        datasets: [
-          {
-            data: barData
+      data,
+      options: {
+        scales: {
+          x: { stacked: true },
+          y: { stacked: true }
+        },
+        plugins: {
+          tooltip: {
+            callbacks: {
+            }
           }
-        ]}
+        }
+      }
     })
   }
+}
+
+function getMonday(d) {
+  d = new Date(d);
+  const day = d.getDay()
+  const diff = d.getDate() - day + (day == 0 ? -6:1); // adjust when day is sunday
+  return  new Date(d.setDate(diff))}
+
+function getDayOfWeek(d) {
+  return days[d.getDay()]
 }
