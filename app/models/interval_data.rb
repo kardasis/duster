@@ -6,7 +6,6 @@ class IntervalData
   def initialize(run)
     bucket = ENV.fetch('AWS_S3_RAW_DATA_BUCKET_NAME', nil)
     key = "#{run.id}-interval"
-
     @tickstamps = run.tickstamps
     @second_data = ColdDataStore.fetch_s3_data(bucket, key)
     @second_data ||= calculate_interval_data

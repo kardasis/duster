@@ -28,12 +28,12 @@ end
 
 def datasets
   [
-    { label: 'Sunday', data: [0, 2.6, 0, 0] },
-    { label: 'Monday', data: [0, 0, 0, 0] },
-    { label: 'Tuesday', data: [4.5, 0, 0, 0] },
-    { label: 'Wednesday', data: [0, 0, 0, 0] },
-    { label: 'Thursday', data: [0, 0, 0, 0] },
-    { label: 'Friday', data: [0, 0, 0, 0] },
-    { label: 'Saturday', data: [0, 4.4, 0, 0] }
+    { label: 'Sunday', data: [0, 2.6, 0, 0], backgroundColor: 'grey' },
+    { label: 'Monday', data: [0, 0, 0, 0], backgroundColor: 'purple' },
+    { label: 'Tuesday', data: [4.5, 0, 0, 0], backgroundColor: 'blue' },
+    { label: 'Wednesday', data: [0, 0, 0, 0], backgroundColor: 'green' },
+    { label: 'Thursday', data: [0, 0, 0, 0], backgroundColor: 'yellow' },
+    { label: 'Friday', data: [0, 0, 0, 0], backgroundColor: 'orange' },
+    { label: 'Saturday', data: [0, 4.4, 0, 0], backgroundColor: 'red' }
   ]
 end

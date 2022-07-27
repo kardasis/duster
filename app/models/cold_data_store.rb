@@ -37,9 +37,10 @@ class ColdDataStore < ApplicationRecord
   def self.fetch_s3_data(bucket, key)
     s3 = Aws::S3::Client.new
     begin
-      object = s3.get_object({ bucket:, key: })
-      res = JSON.parse object.body.string, symbolize_names: true
-      res[:ticks] = res[:ticks].map(&:to_i)
+      res = JSON.parse s3.get_object({ bucket:, key: }).body.string, symbolize_names: true
+      if res[:ticks].present?
+        res[:ticks] = res[:ticks].map(&:to_i)
+      end
       res
     rescue StandardError
       nil
@@ -47,6 +48,8 @@ class ColdDataStore < ApplicationRecord
   end
 
   def self.remove_uri(uri)
+    return if uri.blank?
+
     s3 = Aws::S3::Client.new
 
     parsed = URI.parse(uri)
