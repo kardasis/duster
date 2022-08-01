@@ -20,7 +20,7 @@ class RunSummariesController < ApplicationController
                               total_distance: old_rs.total_distance,
                               interval_data_uri: old_rs.interval_data_uri,
                               raw_data_uri: old_rs.raw_data_uri,
-                              start_time: old_rs.start_time })
+                              start_time: Time.now.utc })
 
     new_rs.save
     render json: new_rs
