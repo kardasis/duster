@@ -1,24 +1,27 @@
 import { Controller } from "@hotwired/stimulus"
 import { Chart, registerables, ScatterDataPoint } from 'chart.js';
+import {externalTooltipHandler} from './tooltip'
 
 Chart.register(...registerables);
 
 const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
 export default class extends Controller {
-  static targets = [ 'chart', 'data']
+  static targets = [ 'chart', 'data', 'tooltip']
 
   chart: Chart
   chartTarget: HTMLCanvasElement
   dataTarget: HTMLElement
+  tooltipTarget: HTMLElement
+
 
   connect() {
-    console.log(this.dataTarget.dataset.summariesData)
-    const data = JSON.parse(this.dataTarget.dataset.summariesData)
+    const bar_data = JSON.parse(this.dataTarget.dataset.bars)
+    const summaries = JSON.parse(this.dataTarget.dataset.indexedSummaries)
 
     this.chart = new Chart(this.chartTarget, {
       type: 'bar',
-      data,
+      data: bar_data,
       options: {
         scales: {
           x: { stacked: true },
@@ -26,8 +29,8 @@ export default class extends Controller {
         },
         plugins: {
           tooltip: {
-            callbacks: {
-            }
+            enabled: false,
+            external: externalTooltipHandler(this.tooltipTarget, summaries),
           }
         }
       }

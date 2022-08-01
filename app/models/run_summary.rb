@@ -28,4 +28,8 @@ class RunSummary < ApplicationRecord
     save
     self
   end
+
+  def average_speed
+    total_distance / (total_time / SECONDS_PER_HOUR)
+  end
 end

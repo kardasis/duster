@@ -1,9 +1,9 @@
 # The chart showing all the runs
 class RunSummaryChartComponent < ViewComponent::Base
-  def data
+  def bar_data
     Date.beginning_of_week = :sunday
 
-    @summaries = RunSummary.all.order(start_time: :asc)
+    @summaries = RunSummary.includes(:distance_records).all.order(start_time: :asc)
 
     collect_sundays
     datasets = calculate_datasets @sundays.length
@@ -22,6 +22,19 @@ class RunSummaryChartComponent < ViewComponent::Base
       @sundays.push(@sunday)
       @sunday += 7.days
     end
+  end
+
+  def indexed_summaries
+    res = Array.new(7).fill { {} }
+    @summaries.each do |summary|
+      i = @sunday_hash[summary_week(summary)]
+      s = summary.attributes
+      s[:distance_records] = summary.distance_records
+      s[:averageSpeed] = summary.average_speed
+      pp summary.start_time.wday
+      res[summary.start_time.wday][i] = s
+    end
+    res
   end
 
   def calculate_datasets(_number_of_weeks)

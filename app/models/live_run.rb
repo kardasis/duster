@@ -19,11 +19,12 @@ class LiveRun < ApplicationRecord
 
   def normalize(data)
     data = data.map(&:to_i)
+    data = data.filter.with_index { |d, i| d - data[i - 1] > DEBOUNCE_TIME }
+               .map { |d| d - start_tickstamp }
     if last_tick
       data.prepend last_tick
     end
-    data.filter.with_index { |d, i| d - data[i - 1] > DEBOUNCE_TIME }
-        .map { |d| d - start_tickstamp }
+    data
   end
 
   def client_update_data
@@ -59,9 +60,9 @@ class LiveRun < ApplicationRecord
 
   def immediate_speed
     ticks_per_millis = if last_tick.nil?
-                         (@tick_data.length.to_f - 1) / @tick_data.last
+                         (@tick_data.length.to_f - 1.0) / @tick_data.last.to_f
                        else
-                         @tick_data.length.to_f / (@tick_data.last - last_tick)
+                         @tick_data.length.to_f / (@tick_data.last.to_f - last_tick.to_f)
                        end
     ticks_per_millis * MILLIS_PER_HOUR / TICKS_PER_MILE
   end

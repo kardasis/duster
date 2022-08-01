@@ -1,5 +1,29 @@
-<div data-controller="run-summary-chart">
-  <%= content_tag :div, 'data-run-summary-chart-target' => "data", data: {summaries_data: data} do %>
+<div data-controller="run-summary-chart" 
+     class="w-full">
+  <%= content_tag :data, 'data-run-summary-chart-target' => "data", data: {bars: bar_data, indexed_summaries: } do %>
   <% end %>
+
+  <div data-controller="run-summary-chart-tooltip" 
+       data-run-summary-chart-target="tooltip" 
+       data-action="update-tooltip->run-summary-chart-tooltip#update"
+       class="absolute rounded border-4 border-solid border-black pointer-events-none text-white
+       transition-all transition-1000 ease-in-out bg-black/80 -translate-x-1/2 w-1/4">
+    <h2 data-run-summary-chart-tooltip-target="date" ></h2>
+    <div class="flex flex-row justify-between">
+      <div class="flex flex-col m-3">
+        <p class="text-2xl content-center text-center" data-run-summary-chart-tooltip-target="distance">0</p>
+        <p class="text-sm content-center text-center">MILES</p>
+      </div>
+      <div class="flex flex-col content-end w-96">
+        <p class="text-1xl text-right" data-run-summary-chart-tooltip-target="time"></p>
+        <p class="text-md text-right">
+        <span class="text-1xl" data-run-summary-chart-tooltip-target="speed">0</span> mph
+        </p>
+      </div>
+    </div>
+    <table data-run-summary-chart-tooltip-target="distanceRecords" 
+           class="w-3/4 mx-auto text-center"> </table>
+  </div>
+
   <canvas data-run-summary-chart-target="chart" class=""/>
 </div>

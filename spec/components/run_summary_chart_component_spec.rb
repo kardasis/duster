@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe RunSummaryChartComponent, type: :component do
-  describe '#data' do
+  describe '#bar_data' do
     it 'return correct data' do
       create :run_summary,
              start_time: DateTime.new(2022, 7, 19, 1, 2, 3), # tuesday
@@ -21,7 +21,7 @@ describe RunSummaryChartComponent, type: :component do
         datasets:
       }
 
-      expect(RunSummaryChartComponent.new.data).to eq expected
+      expect(RunSummaryChartComponent.new.bar_data).to eq expected
     end
   end
 end
