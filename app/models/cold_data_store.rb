@@ -51,11 +51,15 @@ class ColdDataStore < ApplicationRecord
     return if uri.blank?
 
     s3 = Aws::S3::Client.new
+    key, bucket = key_bucket(uri)
 
+    s3.delete_object bucket:, key:
+  end
+
+  def self.key_bucket(uri)
     parsed = URI.parse(uri)
     bucket = parsed.host.split('.')[0]
     key = parsed.path[1..]
-
-    s3.delete_object bucket:, key:
+    [key, bucket]
   end
 end

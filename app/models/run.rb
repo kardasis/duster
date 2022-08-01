@@ -67,8 +67,12 @@ class Run < ApplicationRecord
   def calculate_tickstamps
     res = RunDataStore.get id
     if !res
-      bucket = ENV.fetch('AWS_S3_RAW_DATA_BUCKET_NAME', nil)
-      key = id
+      if summary&.raw_data_uri
+        key, bucket = ColdDataStore.key_bucket(summary&.raw_data_uri)
+      else
+        bucket = ENV.fetch('AWS_S3_RAW_DATA_BUCKET_NAME', nil)
+        key = id
+      end
       res = ColdDataStore.fetch_s3_data(bucket, key)
       if res
         res = res[:ticks]

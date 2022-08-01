@@ -7,8 +7,6 @@ if (element instanceof HTMLMetaElement) {
   csrfToken = element.content;
 }
 
-
-
 export default class extends Controller {
   idTarget: HTMLInputElement
 
@@ -16,15 +14,15 @@ export default class extends Controller {
 
   async duplicate_summary() {
     if (confirm( "Make a new one like this?") == true) {
-    const result = await fetch(`/run_summaries/${this.idTarget.value}/duplicate`, {
-      method: 'POST',
-      headers: {
-        "X-CSRF-Token": csrfToken,
-        'Content-type': 'application/json'
-      }
-    });
+      const result = await fetch(`/run_summaries/${this.idTarget.value}/duplicate`, {
+        method: 'POST',
+        headers: {
+          "X-CSRF-Token": csrfToken,
+          'Content-type': 'application/json'
+        }
+      });
 
-    location.reload();
+      location.reload();
     }
   }
 
