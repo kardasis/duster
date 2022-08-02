@@ -10,7 +10,7 @@ describe LiveRun, type: :model do
 
       expect(RunChannel).to have_received(:broadcast_to)
         .with(lr.run, {
-                intervalTicks: [[9.9, 3.4738292011019287]],
+                intervalTicks: [[9.9, 3.4737765681236232]],
                 stats: {
                   'total-time': '0:09',
                   'total-distance': '0.0097',
