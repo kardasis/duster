@@ -19,12 +19,8 @@ namespace :import do
 end
 
 def summary_from_s3_bucket(bucket, key)
-  pp bucket, key
-
   start_time = key[/.*-(\d*)\.json/, 1]
-  if start_time && RunSummary.exists?({ start_time: Time.at(start_time.to_i).utc })
-    return nil
-  end
+  return nil if start_time && RunSummary.exists?({ start_time: Time.at(start_time.to_i).utc })
 
   data = ColdDataStore.fetch_s3_data bucket, key
 
@@ -33,12 +29,16 @@ def summary_from_s3_bucket(bucket, key)
   run.tickstamps = data[:ticks]
 
   summary = run.generate_summary
-  raw_data_uri = ColdDataStore.store_raw_json run
-  summary.raw_data_uri = raw_data_uri
-
-  interval_data_uri = ColdDataStore.store_interval_json run
-  summary.interval_data_uri = interval_data_uri
+  store_data(summary)
 
   summary.save
   summary
+end
+
+def store_data(summary)
+  raw_data_uri = ColdDataStore.store_raw_json summary.run
+  summary.raw_data_uri = raw_data_uri
+
+  interval_data_uri = ColdDataStore.store_interval_json summary.run
+  summary.interval_data_uri = interval_data_uri
 end

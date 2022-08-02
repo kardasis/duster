@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe DuplicateRunSummary do
-  describe '#call', :focus do
+  describe '#call' do
     it 'should return the best time' do
       old_summary = create :run_summary, :with_distance_records
 

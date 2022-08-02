@@ -60,9 +60,9 @@ class LiveRun < ApplicationRecord
 
   def immediate_speed
     ticks_per_millis = if last_tick.nil?
-                         (@tick_data.length.to_f - 1.0) / @tick_data.last.to_f
+                         (@tick_data.length - 1.0) / @tick_data.last.to_f
                        else
-                         @tick_data.length.to_f / (@tick_data.last.to_f - last_tick.to_f)
+                         @tick_data.length / (@tick_data.last.to_f - last_tick)
                        end
     ticks_per_millis * MILLIS_PER_HOUR / TICKS_PER_MILE
   end
