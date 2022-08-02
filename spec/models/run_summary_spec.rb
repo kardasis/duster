@@ -14,7 +14,7 @@ describe RunSummary, type: :model do
     it 'should works on a larger run' do
       run = create :run, :with_data
       run.generate_summary
-      expect(run.summary.distance_records.length).to be 2
+      expect(run.summary.distance_records.length).to be 3
     end
   end
 end
