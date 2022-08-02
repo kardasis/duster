@@ -12,17 +12,7 @@ class RunSummariesController < ApplicationController
   end
 
   def duplicate
-    old_rs = RunSummary.find params[:run_summary_id]
-    run = Run.create_with_start_time Time.now.utc
-
-    new_rs = RunSummary.new({ run:,
-                              total_time: old_rs.total_time,
-                              total_distance: old_rs.total_distance,
-                              interval_data_uri: old_rs.interval_data_uri,
-                              raw_data_uri: old_rs.raw_data_uri,
-                              start_time: Time.now.utc })
-
-    new_rs.save
+    new_rs = DuplicateRunSummary.call(params[:run_summary_id])
     render json: new_rs
   end
 end

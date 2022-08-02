@@ -31,7 +31,6 @@ class RunSummaryChartComponent < ViewComponent::Base
       s = summary.attributes
       s[:distance_records] = summary.distance_records
       s[:averageSpeed] = summary.average_speed
-      pp summary.start_time.wday
       res[summary.start_time.wday][i] = s
     end
     res
