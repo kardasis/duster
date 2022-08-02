@@ -14,7 +14,7 @@ describe Api::RunSummariesController do
       json = JSON.parse(response.body)
 
       expect(json['run_id']).to eq run.id
-      expect(json['distance_records'].length).to be 2
+      expect(json['distance_records'].length).to be 3
       expect(RunSummary.last.raw_data_uri).to eq "https://#{bucket}.s3.amazonaws.com/#{key}"
       expect(RunSummary.last.interval_data_uri).to eq "https://#{bucket}.s3.amazonaws.com/#{key}-interval"
     end
