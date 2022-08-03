@@ -72,4 +72,6 @@ Rails.application.configure do
   #
   # For testing on local network
   config.web_console.whitelisted_ips = '192.168.0.0/16'
+
+  config.hosts << 'mbp.local'
 end

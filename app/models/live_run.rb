@@ -19,8 +19,10 @@ class LiveRun < ApplicationRecord
 
   def normalize(data)
     data = data.map(&:to_i)
-    data = data.filter.with_index { |d, i| d - data[i - 1] > DEBOUNCE_TIME }
-               .map { |d| d - start_tickstamp }
+    data = data.filter.with_index do |d, i|
+      i.zero? || d - data[i - 1] > DEBOUNCE_TIME
+    end
+    data = data.map { |d| d - start_tickstamp }
     if last_tick
       data.prepend last_tick
     end
@@ -84,7 +86,8 @@ class LiveRun < ApplicationRecord
   end
 
   def total_time
-    @tick_data.last / 1000.0
+    ms = @tick_data&.last || 0
+    ms / 1000.0
   end
 
   def average_speed_formatted
