@@ -23,11 +23,9 @@ export default class extends Controller {
   connect() {
     this.intervalData = []
     this.runId = this.dashboardTarget.dataset.run_id
-
     this.initChart()
     this.setRunId()
   }
-
 
   setRunId(id=null) {
     this.runId ||= id
@@ -89,7 +87,6 @@ const chartOptions = {
     legend: { display: false }
   },
   maintainAspectRatio: false,
-  animation: false,
   elements: {
     point:{ radius: 0 }
   },
@@ -101,7 +98,7 @@ const chartOptions = {
       ticks: {
         stepSize: 1,
         autoSkip: false,
-        callback: function(value) {
+        callback: function(value: number): string {
           if (value % 30 !== 0) {
             return undefined
           } else {
