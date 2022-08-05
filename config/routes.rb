@@ -11,5 +11,6 @@ Rails.application.routes.draw do
       resources :run_summaries, only: :create
     end
     post 'run/:run_id/datapoints', to: 'datapoints#add'
+    post 'device_connected', to: 'devices#connect'
   end
 end
