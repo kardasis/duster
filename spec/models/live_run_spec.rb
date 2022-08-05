@@ -10,14 +10,14 @@ describe LiveRun, type: :model do
 
       expect(RunChannel).to have_received(:broadcast_to)
         .with(lr.run, {
-                intervalTicks: [[9.9, 3.4737765681236232]],
+                intervalTicks: [[9.9, 3.5095886976919077]],
                 stats: {
+                  'average-pace': '16:55',
+                  'average-speed': '3.545',
+                  pace: '17:05',
+                  speed: '3.510',
                   'total-time': '0:09',
-                  'total-distance': '0.0097',
-                  'average-speed': '3.510',
-                  'average-pace': '17:05',
-                  speed: '3.474',
-                  pace: '17:16'
+                  'total-distance': '0.0097'
                 }
               })
     end
