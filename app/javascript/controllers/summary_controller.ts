@@ -1,4 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
+import {formatDuration, round} from "../util";
 
 const element: HTMLElement | null = document.querySelector("[name='csrf-token']")
 let csrfToken
@@ -9,8 +10,30 @@ if (element instanceof HTMLMetaElement) {
 
 export default class extends Controller {
   idTarget: HTMLInputElement
+  distanceTarget: HTMLInputElement
+  totalTimeTarget: HTMLInputElement
+  speedTarget: HTMLInputElement
+  startTimeTarget: HTMLInputElement
 
-  static targets = [ "id" ]
+  static targets = [ 'id', 'distance', 'totalTime', 'speed', 'startTime']
+
+  setRunSummary(e) {
+    const runSummary = e.detail
+    console.log(runSummary)
+    this.idTarget.value = runSummary.run_id
+    this.distanceTarget.innerHTML = round(runSummary.total_distance)
+    this.totalTimeTarget.innerHTML = formatDuration(runSummary.total_time)
+    this.speedTarget.innerHTML = round(runSummary.averageSpeed, 3)
+    this.startTimeTarget.innerHTML = new Date(runSummary.start_time).toLocaleDateString(
+      'en-us',
+      {
+        weekday: 'short',
+        month: 'short',
+        day: 'numeric',
+        hour: 'numeric',
+      }
+    )
+  }
 
   async duplicate_summary() {
     if (confirm( "Make a new one like this?") == true) {
@@ -39,3 +62,4 @@ export default class extends Controller {
     }
   }
 }
+

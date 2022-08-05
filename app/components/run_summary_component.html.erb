@@ -1,20 +1,23 @@
 <div class="m-5 p-6 w-4/5 mx-auto bg-white rounded-xl shadow-lg flex flex-col justify-between"
      data-controller="summary"
      data-summaries-index-controller-target="card"
-     data-action="updateCard->summary#update">
+     data-action="set-run-summary->summary#setRunSummary">
 
-  <h2><%= start_time %></h2>
+  <h2 data-summary-target="startTime"><%= start_time %></h2>
   <div class="flex flex-row justify-between">
     <div class="flex flex-col m-3">
-      <p class="text-2xl content-center text-center"><%= total_distance %></p>
+      <p class="text-2xl content-center text-center"
+               data-summary-target="distance">
+        <%= total_distance %>
+      </p>
       <p class="text-sm content-center text-center">MILES</p>
     </div>
     <div class="flex flex-col content-end w-96">
-      <p class="text-1xl text-right">
-      <%= total_time %>
+      <p class="text-1xl text-right" data-summary-target="totalTime">
+        <%= total_time %>
       </p>
       <p class="text-md text-right">
-      <span class="text-1xl"><%= speed %></span> mph
+      <span class="text-1xl" data-summary-target="speed"><%= speed %></span> mph
       </p>
     </div>
 

@@ -1,5 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
-import { Chart, registerables, ScatterDataPoint } from 'chart.js';
+import { Chart, registerables } from 'chart.js';
 import {externalTooltipHandler} from './tooltip'
 
 Chart.register(...registerables);
@@ -19,14 +19,39 @@ export default class extends Controller {
     const bar_data = JSON.parse(this.dataTarget.dataset.bars)
     const summaries = JSON.parse(this.dataTarget.dataset.indexedSummaries)
 
+    const that = this
     this.chart = new Chart(this.chartTarget, {
       type: 'bar',
       data: bar_data,
       options: {
+        onHover: function(e, activeElements) {
+          if (e.type == 'click') {
+            if (activeElements.length > 0) {
+              const {index, datasetIndex} = activeElements[0]
+              const summary = summaries[datasetIndex][index]
+              const card = document.getElementById('summary-card').querySelector('div')
+
+              console.log(card)
+              console.log(summary)
+              card.dispatchEvent(new CustomEvent(
+                'set-run-summary',
+                { detail: summary }
+              ))
+            }
+          }
+          if (e.type == 'mousemove'){
+            if (activeElements.length == 0) {
+              that.tooltipTarget.style.opacity = '0'
+            } else {
+              that.tooltipTarget.style.opacity = '1'
+            }
+          }
+        },
         scales: {
           x: { stacked: true },
           y: { stacked: true }
         },
+        events: ['mousemove', 'click'],
         plugins: {
           tooltip: {
             enabled: false,
@@ -36,14 +61,4 @@ export default class extends Controller {
       }
     })
   }
-}
-
-function getMonday(d) {
-  d = new Date(d);
-  const day = d.getDay()
-  const diff = d.getDate() - day + (day == 0 ? -6:1); // adjust when day is sunday
-  return  new Date(d.setDate(diff))}
-
-function getDayOfWeek(d) {
-  return days[d.getDay()]
 }
