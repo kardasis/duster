@@ -31,9 +31,9 @@ export default class extends Controller {
   distanceTarget: HTMLElement
   distanceRecordsTarget: HTMLElement
 
-  update(event) {
-    const summary = event.detail
-    this.dateTarget.innerHTML = new Date(summary.start_time).toLocaleDateString(
+  update(event: CustomEvent) {
+    const summary: RunSummary = event.detail
+    this.dateTarget.innerHTML = new Date(summary.startTime).toLocaleDateString(
       'en-us',
       {
         weekday: 'short',
@@ -42,8 +42,8 @@ export default class extends Controller {
       }
     )
     this.speedTarget.innerHTML = round(summary.averageSpeed, 2)
-    this.timeTarget.innerHTML = formatDuration(summary.total_time)
-    this.distanceTarget.innerHTML = round(summary.total_distance, 2)
+    this.timeTarget.innerHTML = formatDuration(summary.totalTime)
+    this.distanceTarget.innerHTML = round(summary.totalDistance, 2)
 
     while (this.distanceRecordsTarget.firstChild) {
       this.distanceRecordsTarget.removeChild(
@@ -52,8 +52,8 @@ export default class extends Controller {
     }
     for (let dist of longNames) {
       const [nominal, label] = dist
-      const dr = summary.distance_records.find(
-        (dr) => dr.nominal_distance === nominal
+      const dr = summary.distanceRecords.find(
+        (dr) => dr.nominalDistance === nominal
       )
       if (dr) {
         const row = this.distanceRecordRow(dr, label)
@@ -62,7 +62,7 @@ export default class extends Controller {
     }
   }
 
-  distanceRecordRow(dr, title) {
+  distanceRecordRow(dr: DistanceRecord, title: string) {
     const row = document.createElement('tr')
 
     const titleTd = document.createElement('td')
@@ -71,14 +71,18 @@ export default class extends Controller {
 
     const timeTd = document.createElement('td')
     timeTd.innerHTML = formatDuration(
-      ((dr.end_time - dr.start_time) / 1000).toFixed()
+      ((dr.endTime - dr.startTime) / 1000).toFixed(0)
     )
     row.appendChild(timeTd)
+
+    // const speedTd = document.createElement('td')
+    // speedTd.innerHTML = round(dr.speed, 3)
+    // row.appendChild(speedTd)
 
     return row
   }
 
-  longNominalDistance(nd) {
+  longNominalDistance(nd: string) {
     return longNames[nd]
   }
 }

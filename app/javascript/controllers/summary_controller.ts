@@ -1,11 +1,13 @@
-import { Controller } from "@hotwired/stimulus"
-import {formatDuration, round} from "../util";
+import { Controller } from '@hotwired/stimulus'
+import { formatDuration, round } from '../util'
 
-const element: HTMLElement | null = document.querySelector("[name='csrf-token']")
-let csrfToken
+const element: HTMLElement | null = document.querySelector(
+  "[name='csrf-token']"
+)
+let csrfToken: string
 
 if (element instanceof HTMLMetaElement) {
-  csrfToken = element.content;
+  csrfToken = element.content
 }
 
 export default class extends Controller {
@@ -15,51 +17,48 @@ export default class extends Controller {
   speedTarget: HTMLInputElement
   startTimeTarget: HTMLInputElement
 
-  static targets = [ 'id', 'distance', 'totalTime', 'speed', 'startTime']
+  static targets = ['id', 'distance', 'totalTime', 'speed', 'startTime']
 
-  setRunSummary(e) {
+  setRunSummary(e: CustomEvent) {
     const runSummary = e.detail
-    console.log(runSummary)
     this.idTarget.value = runSummary.run_id
-    this.distanceTarget.innerHTML = round(runSummary.total_distance)
-    this.totalTimeTarget.innerHTML = formatDuration(runSummary.total_time)
+    this.distanceTarget.innerHTML = round(runSummary.totalDistance)
+    this.totalTimeTarget.innerHTML = formatDuration(runSummary.totalTime)
     this.speedTarget.innerHTML = round(runSummary.averageSpeed, 3)
-    this.startTimeTarget.innerHTML = new Date(runSummary.start_time).toLocaleDateString(
-      'en-us',
-      {
-        weekday: 'short',
-        month: 'short',
-        day: 'numeric',
-        hour: 'numeric',
-      }
-    )
+    this.startTimeTarget.innerHTML = new Date(
+      runSummary.start_time
+    ).toLocaleDateString('en-us', {
+      weekday: 'short',
+      month: 'short',
+      day: 'numeric',
+      hour: 'numeric',
+    })
   }
 
   async duplicate_summary() {
-    if (confirm( "Make a new one like this?") == true) {
-      const result = await fetch(`/run_summaries/${this.idTarget.value}/duplicate`, {
+    if (confirm('Make a new one like this?') == true) {
+      await fetch(`/run_summaries/${this.idTarget.value}/duplicate`, {
         method: 'POST',
         headers: {
-          "X-CSRF-Token": csrfToken,
-          'Content-type': 'application/json'
-        }
-      });
+          'X-CSRF-Token': csrfToken,
+          'Content-type': 'application/json',
+        },
+      })
 
-      location.reload();
+      location.reload()
     }
   }
 
   async delete_summary() {
-    if (confirm( "Really delete this run?") == true) {
-      const result = await fetch(`/run_summaries/${this.idTarget.value}`, {
+    if (confirm('Really delete this run?') == true) {
+      await fetch(`/run_summaries/${this.idTarget.value}`, {
         method: 'DELETE',
         headers: {
-          "X-CSRF-Token": csrfToken,
-          'Content-type': 'application/json'
-        }
-      });
+          'X-CSRF-Token': csrfToken,
+          'Content-type': 'application/json',
+        },
+      })
       this.element.remove()
     }
   }
 }
-

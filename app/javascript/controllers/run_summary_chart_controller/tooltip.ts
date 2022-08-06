@@ -1,4 +1,4 @@
-export const externalTooltipHandler = (tooltipElem: HTMLElement, summaries) => {
+export const externalTooltipHandler = (tooltipElem: HTMLElement, summaries: RunSummary[][]) => {
   return (context) => {
     const { chart, tooltip } = context;
     const { offsetLeft: positionX, offsetTop: positionY } = chart.canvas;
