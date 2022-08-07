@@ -13,5 +13,10 @@ module Api
       run.summary.save
       render json: run.summary
     end
+
+    def show
+      summary = RunSummary.find params[:id]
+      render json: summary
+    end
   end
 end

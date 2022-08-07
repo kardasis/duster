@@ -25,15 +25,10 @@ class RunSummaryChartComponent < ViewComponent::Base
   end
 
   def indexed_summaries
-    res = Array.new(7).fill { {} }
+    res = {}
     @summaries.each do |summary|
       i = @sunday_hash[summary_week(summary)]
-      s = summary.attributes
-      s[:distance_records] = summary.distance_records.map do |dr|
-        dr.attributes.deep_transform_keys! { |key| key.to_s.camelize(:lower) }
-      end
-      s[:averageSpeed] = summary.average_speed
-      res[summary.start_time.wday][i] = s.deep_transform_keys! { |key| key.to_s.camelize(:lower) }
+      res["#{summary.start_time.wday},#{i}"] = RunSummarySerializer.new(summary, include: [:distance_records])
     end
     res
   end

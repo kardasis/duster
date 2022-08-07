@@ -1,3 +1,5 @@
+import {toSummary} from "../../util";
+
 export const externalTooltipHandler = (tooltipElem: HTMLElement, summaries: RunSummary[][]) => {
   return (context) => {
     const { chart, tooltip } = context;
@@ -13,11 +15,11 @@ export const externalTooltipHandler = (tooltipElem: HTMLElement, summaries: RunS
     tooltipElem.style.padding = tooltip.options.padding + 'px ' + tooltip.options.padding + 'px';
 
     const { dataIndex, datasetIndex } = chart.tooltip.dataPoints[0]
-    const summary = summaries[datasetIndex][dataIndex]
+    const summary = summaries[[datasetIndex, dataIndex].toString()]
 
     tooltipElem.dispatchEvent(new CustomEvent(
       'update-tooltip',
-      { detail: summary }
+      { detail: toSummary(summary)}
     ))
   }
 }

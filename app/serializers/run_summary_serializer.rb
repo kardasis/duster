@@ -1,5 +1,8 @@
-# frozen_string_literal: true
+class RunSummarySerializer
+  include JSONAPI::Serializer
+  set_key_transform :camel_lower
 
-class RunSummarySerializer < ActiveModel::Serializer
-  attributes :run_id, :total_time, :total_distance, :start_time, :id, :distance_records
+  has_many :distance_records, serializer: RunSliceSerializer, record_type: :run_slice
+
+  attributes :run_id, :total_time, :total_distance, :start_time, :id, :average_speed
 end
