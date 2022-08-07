@@ -26,7 +26,7 @@ export default class extends Controller {
     this.totalTimeTarget.innerHTML = formatDuration(runSummary.totalTime)
     this.speedTarget.innerHTML = round(runSummary.averageSpeed, 3)
     this.startTimeTarget.innerHTML = new Date(
-      runSummary.start_time
+      runSummary.startTime
     ).toLocaleDateString('en-us', {
       weekday: 'short',
       month: 'short',
