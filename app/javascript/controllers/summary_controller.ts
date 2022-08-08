@@ -21,7 +21,7 @@ export default class extends Controller {
 
   setRunSummary(e: CustomEvent) {
     const runSummary = e.detail
-    this.idTarget.value = runSummary.run_id
+    this.idTarget.value = runSummary.id
     this.distanceTarget.innerHTML = round(runSummary.totalDistance)
     this.totalTimeTarget.innerHTML = formatDuration(runSummary.totalTime)
     this.speedTarget.innerHTML = round(runSummary.averageSpeed, 3)
