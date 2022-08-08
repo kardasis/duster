@@ -1,5 +1,4 @@
-import "chartkick/chart.js"
+import 'chartkick/chart.js'
 
-import "./controllers"
-import "./channels"
-
+import './controllers'
+import './channels'

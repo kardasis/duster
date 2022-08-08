@@ -71,7 +71,7 @@ export default class extends Controller {
 
     const timeTd = document.createElement('td')
     timeTd.innerHTML = formatDuration(
-      ((dr.endTime - dr.startTime) / 1000).toFixed(0)
+      Math.round((dr.endTime - dr.startTime) / 1000)
     )
     row.appendChild(timeTd)
 
