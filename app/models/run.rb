@@ -80,7 +80,7 @@ class Run < ApplicationRecord
       key, bucket = key_bucket
       res = ColdDataStore.fetch_s3_data(bucket, key)
       if res
-        res = res[:ticks]
+        res = res[:ticks].map(&:to_i)
       end
     end
     normalize res

@@ -37,11 +37,7 @@ class ColdDataStore < ApplicationRecord
   def self.fetch_s3_data(bucket, key)
     s3 = Aws::S3::Client.new
     begin
-      res = JSON.parse s3.get_object({ bucket:, key: }).body.string, symbolize_names: true
-      if res[:ticks].present?
-        res[:ticks] = res[:ticks].map(&:to_i)
-      end
-      res
+      JSON.parse s3.get_object({ bucket:, key: }).body.string, symbolize_names: true
     rescue StandardError
       nil
     end
