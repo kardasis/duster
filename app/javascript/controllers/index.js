@@ -13,5 +13,5 @@ application.register(
   RunSummaryChartTooltipController
 )
 
-import SummaryController from './summary_controller.ts'
-application.register('summary', SummaryController)
+import RunSummaryController from './run_summary_controller.ts'
+application.register('run-summary', RunSummaryController)
