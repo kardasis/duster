@@ -1,5 +1,5 @@
 import { Controller } from '@hotwired/stimulus'
-import {Chart} from 'chart.js'
+import { Chart } from 'chart.js'
 import { formatDuration, round } from '../util'
 
 const element: HTMLElement | null = document.querySelector(
@@ -57,9 +57,11 @@ export default class extends Controller {
 
     const response = await fetch(`/api/runs/${runSummary.runId}/interval_data`)
     const intervalData = await response.json()
-    const speedData = intervalData.map(interval => {
-      return {x: interval.time, y:interval.immediate_speed}
-    })
+    const speedData = intervalData.map(
+      (interval: { time: number; immediate_speed: number }) => {
+        return { x: interval.time, y: interval.immediate_speed }
+      }
+    )
     this.intervalDataChart.data.datasets[0].data = speedData
     this.intervalDataChart.update()
   }
@@ -68,10 +70,26 @@ export default class extends Controller {
     this.intervalDataChart = new Chart(this.intervalDataChartTarget, {
       type: 'scatter',
       data: {
-        datasets: [{
-          data: [],
-          borderColor: 'rgb(75, 192, 192)',
-        }]
+        datasets: [
+          {
+            fill: {
+              value: 0,
+            },
+            data: [],
+            borderColor: 'rgba(66, 66, 66, 1)',
+            borderWidth: 1,
+            showLine: true,
+          },
+        ],
+      },
+      options: {
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+        },
+        elements: {
+          point: { radius: 0 },
+        },
       },
     })
   }

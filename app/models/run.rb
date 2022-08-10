@@ -50,7 +50,7 @@ class Run < ApplicationRecord
   end
 
   def tickstamps=(tickstamps)
-    @tickstamps = normalize(tickstamps)
+    @tickstamps = normalize(tickstamps.map(&:to_i))
   end
 
   def total_calories

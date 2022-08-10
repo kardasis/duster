@@ -1,32 +1,24 @@
-<div class="m-5 p-6 w-4/5 mx-auto bg-white rounded-xl shadow-lg flex flex-col justify-between"
+<div class="m-5 p-6 mx-auto bg-white rounded-xl shadow-lg flex flex-row justify-between w-full h-96"
+     id="summary-card"
      data-controller="run-summary"
      data-summaries-index-controller-target="card"
      data-action="set-run-summary->run-summary#setRunSummary">
 
-  <h2 data-run-summary-target="startTime"></h2>
-  <div class="flex flex-row justify-between">
-    <div class="flex flex-col m-3">
-      <p class="text-2xl content-center text-center"
-               data-run-summary-target="distance">
-      --
-      </p>
-      <p class="text-sm content-center text-center">MILES</p>
-      <p class="text-2xl content-center text-center"
-               data-run-summary-target="calories">
-      --
-      </p>
-      <p class="text-sm content-center text-center">CALORIES</p>
-    </div>
-    <div class="flex flex-col content-end w-96">
-      <p class="text-1xl text-right" data-run-summary-target="totalTime">
-      --
-      </p>
-      <p class="text-md text-right">
-      <span class="text-1xl" data-run-summary-target="speed">--</span> mph
-      </p>
-    </div>
-
-    <div class="flex flex-col justify-self-end">
+  <div class="flex flex-col m-3 justify-between items-start w-1/6">
+    <h2 data-run-summary-target="startTime">--</h2>
+    <p class="text-xl" >
+      <span class="text-3xl" data-run-summary-target="distance">--</span> miles
+    </p>
+    <p class="text-xl">
+      <span class="text-3xl" data-run-summary-target="calories"> --</span> cal
+    </p>
+    <p class="text-2xl" data-run-summary-target="totalTime">
+    --
+    </p>
+    <p class="text-md">
+    <span class="text-2xl" data-run-summary-target="speed">--</span> mph
+    </p>
+    <div>
       <input data-run-summary-target="id" type="hidden" value="--">
       <button data-action="click->run-summary#delete_summary"
               class="btn-primary">
@@ -38,7 +30,7 @@
       </button>
     </div>
   </div>
-  <div data-run-summary-target="intervalDataTarget">
+  <div data-run-summary-target="intervalDataTarget" class="w-5/6">
     <canvas data-run-summary-target="intervalDataChart" class=""/>
   </div>
 </div>

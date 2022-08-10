@@ -1,8 +1,6 @@
-<div class="flex flex-col mx-auto w-full" >
+<div class="flex flex-col mx-auto w-full v-full" >
   <div class="justify-self-stretch w-full">
     <%= render(RunSummaryChartComponent.new) %>
   </div>
-  <div class="flex flex-col w-full overflow-y-auto" id="summary-card">
-    <%= render(RunSummaryComponent.new run_summary:@run_summaries[0]) %>
-  </div>
+  <%= render(RunSummaryComponent.new run_summary:@run_summaries[0]) %>
 </div>

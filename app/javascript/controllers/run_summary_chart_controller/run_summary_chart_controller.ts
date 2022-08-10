@@ -39,9 +39,7 @@ export default class extends Controller {
               const summary = toSummary(
                 summaries[[datasetIndex, index].toString()]
               )
-              const card = document
-                .getElementById('summary-card')
-                .querySelector('div')
+              const card = document.getElementById('summary-card')
 
               card.dispatchEvent(
                 new CustomEvent('set-run-summary', { detail: summary })
