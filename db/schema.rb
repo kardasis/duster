@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_09_002541) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_10_181838) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -21,6 +21,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_09_002541) do
     t.integer "tick_count", default: 0, null: false
     t.decimal "speed"
     t.uuid "run_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "run_data", force: :cascade do |t|
+    t.uuid "run_id", null: false
+    t.string "raw_data_uri"
+    t.string "interval_data_uri"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -44,8 +52,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_09_002541) do
     t.datetime "start_time", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "raw_data_uri"
-    t.string "interval_data_uri"
     t.decimal "calories"
   end
 

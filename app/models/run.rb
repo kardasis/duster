@@ -1,6 +1,7 @@
 # The primary model for dealing with a run.
 class Run < ApplicationRecord
   has_one :summary, class_name: 'RunSummary', dependent: :destroy
+  has_one :run_data, dependent: :destroy
   has_one :live_run, dependent: :destroy
   validates :start_time, presence: true
 
