@@ -58,8 +58,8 @@ export default class extends Controller {
     const response = await fetch(`/api/runs/${runSummary.runId}/interval_data`)
     const intervalData = await response.json()
     const speedData = intervalData.map(
-      (interval: { time: number; immediate_speed: number }) => {
-        return { x: interval.time, y: interval.immediate_speed }
+      (interval: { time: number; smoothed_speed: number }) => {
+        return { x: interval.time, y: interval.smoothed_speed }
       }
     )
     this.intervalDataChart.data.datasets[0].data = speedData

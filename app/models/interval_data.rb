@@ -28,16 +28,21 @@ class IntervalData
   private
 
   def calculate_interval_data(incline: 1, weight: 192)
+    smoothed_speed = 0
     second_chunks.map do |item|
       window_begin, window_end, second = item.values_at(:window_begin, :window_end, :second)
       ticks_per_millis = calc_ticks_per_millis(window_begin, window_end)
       immediate_speed = ticks_per_millis ? ticks_per_millis * MILLIS_PER_HOUR / TICKS_PER_MILE : 0
+      smoothed_speed = smooth(smoothed_speed, immediate_speed)
 
       { calories: calories_calc(weight, immediate_speed, incline),
-        immediate_speed:,
-        time: second,
+        immediate_speed:, smoothed_speed:, time: second,
         distance: window_end / TICKS_PER_MILE }
     end
+  end
+
+  def smooth(old, new)
+    (new * (1 - SPEED_SMOOTHING)) + (SPEED_SMOOTHING * old)
   end
 
   def calc_ticks_per_millis(window_begin, window_end)
