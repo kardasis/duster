@@ -65,8 +65,8 @@ class Run < ApplicationRecord
   end
 
   def key_bucket
-    if summary&.raw_data_uri
-      key, bucket = ColdDataStore.key_bucket(summary&.raw_data_uri)
+    if run_data&.raw_data_uri
+      key, bucket = ColdDataStore.key_bucket(run_data&.raw_data_uri)
     else
       bucket = ENV.fetch('AWS_S3_RAW_DATA_BUCKET_NAME', nil)
       key = id
