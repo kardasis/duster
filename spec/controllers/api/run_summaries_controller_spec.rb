@@ -12,8 +12,8 @@ describe Api::RunSummariesController do
 
       get :create, params: { run_id: run.id }
 
-      expect(RunSummary.last.raw_data_uri).to eq "https://#{bucket}.s3.amazonaws.com/#{key}"
-      expect(RunSummary.last.interval_data_uri).to eq "https://#{bucket}.s3.amazonaws.com/#{key}-interval"
+      expect(RunData.last.raw_data_uri).to eq "https://#{bucket}.s3.amazonaws.com/#{key}"
+      expect(RunData.last.interval_data_uri).to eq "https://#{bucket}.s3.amazonaws.com/#{key}-interval"
     end
   end
 end
