@@ -3,11 +3,13 @@
 class IntervalData
   attr_reader :second_data
 
-  def initialize(run)
+  def initialize(run, recalc: false)
     bucket = ENV.fetch('AWS_S3_RAW_DATA_BUCKET_NAME', nil)
     key = "#{run.id}-interval"
     @tickstamps = run.tickstamps
-    @second_data = ColdDataStore.fetch_s3_data(bucket, key)
+    if !recalc
+      @second_data = ColdDataStore.fetch_s3_data(bucket, key)
+    end
     @second_data ||= calculate_interval_data
   end
 

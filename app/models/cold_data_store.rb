@@ -1,11 +1,11 @@
 # Thin wrapper around AWS operations
 class ColdDataStore < ApplicationRecord
-  def self.store_interval_json(run)
+  def self.store_interval_json(run, recalc: false)
     s3 = Aws::S3::Client.new
     bucket = ENV.fetch('AWS_S3_RAW_DATA_BUCKET_NAME', nil)
     key = "#{run.id}-interval"
 
-    i = IntervalData.new run
+    i = IntervalData.new run, recalc: recalc
 
     s3.put_object({ body: i.second_data.to_json, bucket:, key: })
     s3_uri bucket, key
