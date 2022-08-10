@@ -1,4 +1,5 @@
 import { Controller } from '@hotwired/stimulus'
+import {Chart} from 'chart.js'
 import { formatDuration, round } from '../util'
 
 const element: HTMLElement | null = document.querySelector(
@@ -11,20 +12,40 @@ if (element instanceof HTMLMetaElement) {
 }
 
 export default class extends Controller {
+  static targets = [
+    'id',
+    'distance',
+    'totalTime',
+    'speed',
+    'startTime',
+    'calories',
+    'intervalDataChart',
+  ]
+
   idTarget: HTMLInputElement
-  distanceTarget: HTMLInputElement
-  totalTimeTarget: HTMLInputElement
-  speedTarget: HTMLInputElement
-  startTimeTarget: HTMLInputElement
+  distanceTarget: HTMLElement
+  totalTimeTarget: HTMLElement
+  speedTarget: HTMLElement
+  startTimeTarget: HTMLElement
+  caloriesTarget: HTMLElement
+  intervalDataChartTarget: HTMLCanvasElement
 
-  static targets = ['id', 'distance', 'totalTime', 'speed', 'startTime']
+  intervalDataChart: Chart
 
-  setRunSummary(e: CustomEvent) {
+  connect() {
+    this.buildIntervalDataChart()
+  }
+  async setRunSummary(e: CustomEvent) {
     const runSummary = e.detail
+
     this.idTarget.value = runSummary.id
     this.distanceTarget.innerHTML = round(runSummary.totalDistance)
     this.totalTimeTarget.innerHTML = formatDuration(runSummary.totalTime)
     this.speedTarget.innerHTML = round(runSummary.averageSpeed, 3)
+    this.caloriesTarget.innerHTML = runSummary.calories
+      ? round(runSummary.calories, 0)
+      : '??'
+
     this.startTimeTarget.innerHTML = new Date(
       runSummary.startTime
     ).toLocaleDateString('en-us', {
@@ -32,6 +53,26 @@ export default class extends Controller {
       month: 'short',
       day: 'numeric',
       hour: 'numeric',
+    })
+
+    const response = await fetch(`/api/runs/${runSummary.runId}/interval_data`)
+    const intervalData = await response.json()
+    const speedData = intervalData.map(interval => {
+      return {x: interval.time, y:interval.immediate_speed}
+    })
+    this.intervalDataChart.data.datasets[0].data = speedData
+    this.intervalDataChart.update()
+  }
+
+  buildIntervalDataChart() {
+    this.intervalDataChart = new Chart(this.intervalDataChartTarget, {
+      type: 'scatter',
+      data: {
+        datasets: [{
+          data: [],
+          borderColor: 'rgb(75, 192, 192)',
+        }]
+      },
     })
   }
 

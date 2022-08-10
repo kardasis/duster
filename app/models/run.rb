@@ -23,7 +23,6 @@ class Run < ApplicationRecord
 
   def generate_summary
     build_summary
-    summary.tickstamps = tickstamps
     summary.calculate_summary
     if summary.save
       RunDataStore.remove id
@@ -54,14 +53,14 @@ class Run < ApplicationRecord
     @tickstamps = normalize(tickstamps)
   end
 
+  def total_calories
+    interval_data.total_calories
+  end
+
   private
 
   def interval_data
-    if @interval_data
-      return @interval_data
-    end
-
-    @interval_data = IntervalData.new self
+    @interval_data ||= IntervalData.new self
   end
 
   def key_bucket

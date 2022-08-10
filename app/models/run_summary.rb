@@ -4,9 +4,7 @@ class RunSummary < ApplicationRecord
   belongs_to :run
   has_many :distance_records, class_name: 'RunSlice', dependent: :destroy
 
-  attr_accessor :tickstamps
-
-  def calculate_distance_records(tickstamps)
+  def calculate_distance_records
     btfd = BestTimeForDistance.new(tickstamps)
     RECORD_DISTANCES.each do |name, miles|
       best = btfd.calculate(miles:)
@@ -18,15 +16,24 @@ class RunSummary < ApplicationRecord
     end
   end
 
-  def calculate_summary
-    self.total_distance = @tickstamps.length / TICKS_PER_MILE
-    self.total_time = @tickstamps.last / 1000
-    self.start_time = Time.at(run.start_time).utc
-    calculate_distance_records(@tickstamps)
+  def tickstamps
+    run.tickstamps
+  end
 
-    IntervalData.new run
+  def calculate_summary
+    calculate_distance_records
+    self.total_distance = tickstamps.length / TICKS_PER_MILE
+    self.total_time = tickstamps.last / 1000
+
+    self.start_time = calc_start_time
+    self.calories = run.total_calories
+
     save
     self
+  end
+
+  def calc_start_time
+    Time.at(run.start_time).utc
   end
 
   def average_speed

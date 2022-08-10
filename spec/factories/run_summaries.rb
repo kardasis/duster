@@ -7,9 +7,7 @@ FactoryBot.define do
 
     trait :with_distance_records do
       association :run, :with_data
-      after(:create) do |summary|
-        summary.calculate_distance_records(summary.run.tickstamps)
-      end
+      after :create, &:calculate_distance_records
     end
   end
 end

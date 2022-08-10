@@ -4,5 +4,5 @@ class RunSummarySerializer
 
   has_many :distance_records, serializer: RunSliceSerializer, record_type: :run_slice
 
-  attributes :run_id, :total_time, :total_distance, :start_time, :id, :average_speed
+  attributes :run_id, :total_time, :total_distance, :start_time, :id, :average_speed, :calories
 end

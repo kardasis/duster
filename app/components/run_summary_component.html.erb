@@ -3,26 +3,31 @@
      data-summaries-index-controller-target="card"
      data-action="set-run-summary->run-summary#setRunSummary">
 
-  <h2 data-run-summary-target="startTime"><%= start_time %></h2>
+  <h2 data-run-summary-target="startTime"></h2>
   <div class="flex flex-row justify-between">
     <div class="flex flex-col m-3">
       <p class="text-2xl content-center text-center"
                data-run-summary-target="distance">
-        <%= total_distance %>
+      --
       </p>
       <p class="text-sm content-center text-center">MILES</p>
+      <p class="text-2xl content-center text-center"
+               data-run-summary-target="calories">
+      --
+      </p>
+      <p class="text-sm content-center text-center">CALORIES</p>
     </div>
     <div class="flex flex-col content-end w-96">
       <p class="text-1xl text-right" data-run-summary-target="totalTime">
-        <%= total_time %>
+      --
       </p>
       <p class="text-md text-right">
-      <span class="text-1xl" data-run-summary-target="speed"><%= speed %></span> mph
+      <span class="text-1xl" data-run-summary-target="speed">--</span> mph
       </p>
     </div>
 
     <div class="flex flex-col justify-self-end">
-      <input data-run-summary-target="id" type="hidden" value="<%= @run_summary.id %>">
+      <input data-run-summary-target="id" type="hidden" value="--">
       <button data-action="click->run-summary#delete_summary"
               class="btn-primary">
               Delete
@@ -32,5 +37,8 @@
               Duplicate
       </button>
     </div>
+  </div>
+  <div data-run-summary-target="intervalDataTarget">
+    <canvas data-run-summary-target="intervalDataChart" class=""/>
   </div>
 </div>

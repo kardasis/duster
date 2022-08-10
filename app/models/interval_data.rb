@@ -15,6 +15,14 @@ class IntervalData
     @second_data.length
   end
 
+  def total_calories
+    return nil if @second_data.nil?
+
+    @second_data.inject(0) do |sum, second|
+      sum + second[:calories]
+    end
+  end
+
   private
 
   def calculate_interval_data(incline: 1, weight: 192)
@@ -32,9 +40,9 @@ class IntervalData
 
   def calc_ticks_per_millis(window_begin, window_end)
     if window_end == window_begin
-      0
+      0.0
     else
-      (window_end - window_begin) / (@tickstamps[window_end] - @tickstamps[window_begin])
+      (window_end.to_f - window_begin.to_f) / (@tickstamps[window_end].to_f - @tickstamps[window_begin].to_f)
     end
   end
 

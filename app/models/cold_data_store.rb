@@ -5,7 +5,9 @@ class ColdDataStore < ApplicationRecord
     bucket = ENV.fetch('AWS_S3_RAW_DATA_BUCKET_NAME', nil)
     key = "#{run.id}-interval"
 
-    s3.put_object({ body: run.second_data.to_json, bucket:, key: })
+    i = IntervalData.new run
+
+    s3.put_object({ body: i.second_data.to_json, bucket:, key: })
     s3_uri bucket, key
   end
 
