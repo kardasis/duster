@@ -10,7 +10,9 @@ class IntervalData
     if !recalc
       @second_data = ColdDataStore.fetch_s3_data(bucket, key)
     end
-    @second_data ||= calculate_interval_data
+    if @tickstamps
+      @second_data ||= calculate_interval_data
+    end
   end
 
   def length

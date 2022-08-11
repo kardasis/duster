@@ -19,7 +19,7 @@ class Run < ApplicationRecord
   end
 
   def second_data
-    interval_data.second_data
+    interval_data&.second_data
   end
 
   def generate_summary
@@ -55,7 +55,7 @@ class Run < ApplicationRecord
   end
 
   def total_calories
-    interval_data.total_calories
+    interval_data&.total_calories
   end
 
   private
@@ -76,13 +76,14 @@ class Run < ApplicationRecord
 
   def calculate_tickstamps
     res = RunDataStore.get id
-    if !res
+    if res
+      normalize res
+    else
       key, bucket = key_bucket
       res = ColdDataStore.fetch_s3_data(bucket, key)
       if res
-        res = res[:ticks].map(&:to_i)
+        normalize res[:ticks].map(&:to_i)
       end
     end
-    normalize res
   end
 end
