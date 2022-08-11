@@ -2,7 +2,8 @@ export function round(input: string | number, precision = 2): string {
   return parseFloat(input.toString()).toFixed(precision)
 }
 
-export function formatDuration(t: number): string {
+export function formatDuration(f: number): string {
+  const t = Math.round(f)
   const s = t % 60
   const m = ((t - s) / 60) % 60
   const h = (t - s - 60 * m) / 3600
