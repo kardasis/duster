@@ -17,4 +17,12 @@ describe RunSummary, type: :model do
       expect(run.summary.distance_records.length).to be 3
     end
   end
+
+  describe '#summary_calories' do
+    it 'calculates' do
+      run = create :run, :with_data
+      run_summary = run.generate_summary
+      expect(run_summary.summary_calories).to be_within(1).of run_summary.calories
+    end
+  end
 end

@@ -9,7 +9,6 @@ module Api
 
       run.create_run_data raw_data_uri:, interval_data_uri:, run_id: run.id
 
-      run.summary.save
       render json: run.summary
     end
 

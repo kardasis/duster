@@ -3,6 +3,7 @@ class Run < ApplicationRecord
   has_one :summary, class_name: 'RunSummary', dependent: :destroy
   has_one :run_data, dependent: :destroy
   has_one :live_run, dependent: :destroy
+
   validates :start_time, presence: true
 
   self.implicit_order_column = 'created_at'
@@ -23,11 +24,8 @@ class Run < ApplicationRecord
   end
 
   def generate_summary
-    build_summary
-    summary.calculate_summary
-    if summary.save
-      RunDataStore.remove id
-    end
+    self.summary = RunSummary.create_with_tickstamps tickstamps, self
+    RunDataStore.remove id
     summary
   end
 

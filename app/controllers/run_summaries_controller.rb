@@ -11,7 +11,7 @@ class RunSummariesController < ApplicationController
 
   def create
     run = Run.create(start_time: safe_params[:start_time])
-    run.create_summary(safe_params)
+    run.summary = RunSummary.create_with_params(safe_params)
     redirect_to run_summaries_path
   end
 
@@ -20,6 +20,6 @@ class RunSummariesController < ApplicationController
   end
 
   def new
-    @run_summary = RunSummary.new start_time: Time.now
+    @run_summary = RunSummary.new start_time: Time.now.utc
   end
 end
