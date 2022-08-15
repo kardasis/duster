@@ -9,11 +9,6 @@ class RunSummariesController < ApplicationController
     rs.destroy
   end
 
-  def duplicate
-    new_rs = DuplicateRunSummary.call(params[:run_summary_id])
-    render json: new_rs
-  end
-
   def create
     run = Run.create(start_time: safe_params[:start_time])
     run.create_summary(safe_params)

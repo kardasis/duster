@@ -94,20 +94,6 @@ export default class extends Controller {
     })
   }
 
-  async duplicate_summary() {
-    if (confirm('Make a new one like this?') == true) {
-      await fetch(`/run_summaries/${this.idTarget.value}/duplicate`, {
-        method: 'POST',
-        headers: {
-          'X-CSRF-Token': csrfToken,
-          'Content-type': 'application/json',
-        },
-      })
-
-      location.reload()
-    }
-  }
-
   async delete_summary() {
     if (confirm('Really delete this run?') == true) {
       await fetch(`/run_summaries/${this.idTarget.value}`, {

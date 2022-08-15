@@ -1,9 +1,7 @@
 Rails.application.routes.draw do
   root to: 'welcome#index'
 
-  resources :run_summaries, only: %i[index show destroy create new] do
-    post 'duplicate'
-  end
+  resources :run_summaries, only: %i[index show destroy create new]
   resource :run, only: %i[show]
 
   namespace :api do
