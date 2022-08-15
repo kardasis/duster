@@ -58,7 +58,7 @@ export default class extends Controller {
     })
     this.intervalData = this.intervalData.concat(intervalDataXY)
     if (this.intervalData.length > 600) {
-      this.intervalData = this.intervalData.slice(-600, -1)
+      this.intervalData = this.intervalData.slice(-600)
     }
 
     this.chart.data.datasets[0].data = this.intervalData
@@ -88,6 +88,9 @@ export default class extends Controller {
 }
 
 const chartOptions = {
+  animation: {
+    duration: 0
+  },
   plugins: {
     legend: { display: false },
   },
