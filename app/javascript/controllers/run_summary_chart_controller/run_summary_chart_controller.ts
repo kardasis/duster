@@ -32,6 +32,7 @@ export default class extends Controller {
       type: 'bar',
       data: barData,
       options: {
+        maintainAspectRatio: false,
         onHover: function (e, activeElements) {
           if (e.type == 'click') {
             if (activeElements.length > 0) {
